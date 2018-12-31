@@ -1,0 +1,37 @@
+<script type="text/javascript">
+    RED.nodes.registerType('led', {
+        category: 'dashboard',
+        color: 'rgb(63, 173, 181)',
+        defaults: {
+            group: {type: 'ui_group', required: false},
+            name: {value: ''},
+            order: {value: 0},
+            label: {value: ''}
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "alert.png",
+        label: function() {
+            return this.name || "LED";
+        },
+    });
+</script>
+
+<script type="text/x-red" data-template-name="led">
+    <div class="form-row" id="template-row-group">
+       <label for="node-input-group"><i class="fa fa-table"></i> Group</label>
+       <input type="text" id="node-input-group">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-label"><i class="icon-tag"></i> Label</label>
+        <input type="text" id="node-input-label" placeholder="Label">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="led">
+    <p>A simple LED status indicator for the Node-RED Dashboard</p>
+</script>

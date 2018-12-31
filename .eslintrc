@@ -1,0 +1,13 @@
+{
+  "env": {
+    "node": true
+  },
+  "plugins": [
+    "angular"
+  ],
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "rules": {
+  }
+}
