@@ -72,9 +72,6 @@ module.exports = function(RED) {
                 group: config.group,  
                 templateScope: "local",
                 order: 0,
-                emitOnlyNewValues: false,
-                forwardInputMessages: false,
-                storeFrontEndInputAsState: false,
                 beforeEmit: beforeEmit,
                 initController: initController
             });
