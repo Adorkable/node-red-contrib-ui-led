@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('led', {
+    RED.nodes.registerType('ui_led', {
         category: 'dashboard',
         color: 'rgb(63, 173, 181)',
         defaults: {
@@ -19,7 +19,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="led">
+<script type="text/x-red" data-template-name="ui_led">
     <div class="form-row" id="template-row-group">
        <label for="node-input-group"><i class="fa fa-table"></i> Group</label>
        <input type="text" id="node-input-group">
@@ -34,6 +34,6 @@
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="led">
+<script type="text/x-red" data-help-name="ui_led">
     <p>A simple LED status indicator for the Node-RED Dashboard</p>
 </script>

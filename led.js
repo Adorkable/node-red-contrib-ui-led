@@ -82,5 +82,5 @@ module.exports = function(RED) {
         node.on("close", done);
     }
 
-    RED.nodes.registerType("led", LEDNode);
+    RED.nodes.registerType("ui_led", LEDNode);
 }
