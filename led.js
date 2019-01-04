@@ -1,6 +1,4 @@
 module.exports = function(RED) {
-	var settings = RED.settings;
-
     function HTML(config, ledStyle) { 
         return String.raw`
         	<style>
