@@ -16,7 +16,7 @@
   ],
   "node-red": {
     "nodes": {
-      "led": "led.js"
+      "ui_led": "led.js"
     }
   },
   "bugs": {
