@@ -1,5 +1,4 @@
 <script type="text/javascript">
-    //type name must begin with "ui_" or it wont show in the dashboard group in the side bar.
     RED.nodes.registerType('ui_led', {
         category: 'dashboard',
         color: 'rgb(63, 173, 181)',
@@ -20,10 +19,6 @@
     });
 </script>
 
-<!--
-    Name must begin with "ui_" or it wont show in the dashboard group
-    in the side bar.
--->
 <script type="text/x-red" data-template-name="ui_led">
     <div class="form-row" id="template-row-group">
        <label for="node-input-group"><i class="fa fa-table"></i> Group</label>
@@ -39,10 +34,6 @@
     </div>
 </script>
 
-<!--
-    Name must begin with "ui_" or it wont show in the dashboard group
-    in the side bar.
--->
 <script type="text/x-red" data-help-name="ui_led">
     <p>A simple LED status indicator for the Node-RED Dashboard</p>
 </script>
