@@ -28,11 +28,13 @@ module.exports = function(RED) {
     var ui = undefined; 
     function LEDNode(config) {
         try {
-            var node = this;
             if(ui === undefined) {
                 ui = RED.require("node-red-dashboard")(RED);
             }
+
             RED.nodes.createNode(this, config);                       
+
+			var node = this;
 
             var beforeEmit = function(msg, value) {
                 return { msg: msg };

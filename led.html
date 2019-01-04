@@ -1,4 +1,7 @@
+<!DOCTYPE html>
+
 <script type="text/javascript">
+(function() {
     RED.nodes.registerType('ui_led', {
         category: 'dashboard',
         paletteLabel: 'led',
@@ -18,19 +21,20 @@
         icon: "led.png",
         align: 'right'
     });
+})();
 </script>
 
 <script type="text/x-red" data-template-name="ui_led">
-    <div class="form-row" id="template-row-group">
-       <label for="node-input-group"><i class="fa fa-table"></i> Group</label>
-       <input type="text" id="node-input-group">
+    <div class="form-row">
+        <label for="node-input-group"><i class="fa fa-table"></i> Group</label>
+        <input type="text" id="node-input-group">
     </div>
     <div class="form-row">
         <label for="node-input-label"><i class="icon-tag"></i> Label</label>
         <input type="text" id="node-input-label" placeholder="Label">
     </div>
     <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 </script>
