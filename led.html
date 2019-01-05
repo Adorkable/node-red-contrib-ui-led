@@ -3,7 +3,7 @@
         category: 'dashboard',
         color: 'rgb(63, 173, 181)',
         defaults: {
-            group: {type: 'ui_group', required: false},
+            group: {type: 'ui_group', required: true}, //changed to true
             order: {value: 0},
             label: {value: ''},
             name: {value: ''}
@@ -15,6 +15,7 @@
             return this.name || "led";
         },
         icon: "led.png",
+        paletteLabel: "led", //this is needed otherwise the node will display "ui_led" in the node selection
         align: 'right'
     });
 </script>

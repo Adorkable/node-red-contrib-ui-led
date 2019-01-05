@@ -25,7 +25,16 @@ module.exports = function(RED) {
 			    <span class="led" id="led_{{$id}}" style="` + ledStyle + `">   
 			    </span>
 			</div>`;
-    };
+	};
+	
+	// added function to check for node being assigned a group
+	function checkConfig(node, conf) {
+        if (!conf || !conf.hasOwnProperty("group")) {
+            node.error(RED._("ui_led.error.no-group"));
+            return false;
+        }
+        return true;
+    }
 
     var ui = undefined; 
     function LEDNode(config) {
@@ -66,6 +75,8 @@ module.exports = function(RED) {
 			var ledStyleTemplate = (color) => {
 				return `background-color: ` + color + `; box-shadow: inset #ffffff8c 0px 1px 2px, inset #00000033 0 -1px 1px 1px, inset ` + color + ` 0 -1px 4px;`
 			};
+
+			if (checkConfig(node, config)) {  // added check for group config
             var done = ui.addWidget({                   
                 node: node,    
                 format: HTML(config, ledStyleTemplate('gray')), 
@@ -74,7 +85,8 @@ module.exports = function(RED) {
                 order: 0,
                 beforeEmit: beforeEmit,
                 initController: initController
-            });
+			});
+		}
         } catch(error) {
             console.log(error);		
 		}
