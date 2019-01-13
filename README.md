@@ -1,6 +1,11 @@
 ## Node-RED UI LED
 A simple LED status indicator for the Node-RED Dashboard
 
+![dependencies](https://img.shields.io/david/adorkable/node-red-contrib-ui-led.svg?style=flat-square)
+![dev-dependencies](https://img.shields.io/david/dev/adorkable/node-red-contrib-ui-led.svg?style=flat-square)
+![optional-dependencies](https://img.shields.io/david/optional/adorkable/node-red-contrib-ui-led.svg?style=flat-square)
+![peer-dependencies](https://img.shields.io/david/peer/adorkable/node-red-contrib-ui-led.svg?style=flat-square)
+
 ![Examples Image](images/examples.png)
 
 The node uses `msg.payload`'s value to determine status:
