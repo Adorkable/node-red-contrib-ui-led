@@ -66,8 +66,6 @@ module.exports = {
 				return;
 			}
 
-			var value = msg.payload === true;
-
 			function ledStyleTemplate(color, glow) {
 				if (glow) {
 					return `background-color: ` + color + `; box-shadow: inset #ffffff8c 0px 1px 2px, inset #00000033 0 -1px 1px 1px, inset ` + color + ` 0 -1px 4px, ` + color + ` 0 0px 16px, ` + color + ` 0 0px 16px;`;
@@ -78,11 +76,26 @@ module.exports = {
 			}
 
 			var ptr = document.getElementById("led_" + $scope.$eval('$id'));
-			$(ptr).attr('style', ledStyleTemplate(
-				value ? 'green' : 'red',
-				true
-				)
-			);
+			
+			var value = msg.payload;
+
+			var color, found = false;
+
+			if (Array.isArray(msg.colors)) {
+				for (var index = 0; index < msg.colors.length; index ++) {
+					const colorForValue = msg.colors[index];
+
+					if (colorForValue.value === value) {
+						color = colorForValue.color;
+						found = true;
+						break
+					}
+				}
+			} 
+			if (found === false) {
+				color = 'gray';
+			}
+			$(ptr).attr('style', ledStyleTemplate(color, found));
 		};
 		$scope.$watch('msg', update);
 	}

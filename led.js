@@ -25,8 +25,12 @@ module.exports = function(RED) {
 
 			var node = this;
 
+			this.colors = config.colors;
+
             var beforeEmit = function(msg, value) {
-                return { msg: msg };
+				var updatedMessage = msg;
+				updatedMessage.colors = node.colors;
+                return { msg: updatedMessage };
 			};
 
 			if (ledUtility.checkConfig(config, node)) {
@@ -43,7 +47,7 @@ module.exports = function(RED) {
 				node.on("close", done);
 			}		
         } catch(error) {
-            console.log(error);		
+            console.log("While constructing LEDNode widget:", error);		
 		}
     }
 
