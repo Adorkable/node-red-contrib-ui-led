@@ -25,13 +25,12 @@ module.exports = function(RED) {
 
 			var node = this;
 
-			this.colors = config.colors;
-
-            var beforeEmit = function(msg, value) {
-				var updatedMessage = msg;
-				updatedMessage.colors = node.colors;
-                return { msg: updatedMessage };
-			};
+			this.colorForValue = config.colorForValue.map(function(colorForValue) {
+				return {
+					color: colorForValue.color,
+					value: RED.util.evaluateNodeProperty(colorForValue.value, colorForValue.valueType, node)
+				}
+			});
 
 			if (ledUtility.checkConfig(config, node)) {
 	            var done = ui.addWidget({                   
@@ -40,7 +39,7 @@ module.exports = function(RED) {
 	                group: config.group,  
 	                templateScope: "local",
 	                order: 0,
-	                beforeEmit: beforeEmit,
+	                beforeEmit: ledUtility.beforeEmit(node, RED),
 	                initController: ledUtility.initController
 				});
 

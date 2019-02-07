@@ -58,6 +58,39 @@ module.exports = {
 		}
 	},
 
+	beforeEmit: function(node, RED) {
+
+		return function(msg, value) {
+
+			var updatedMessage = msg;
+			const colorForValue =  node.colorForValue;
+
+			var color, found = false;
+
+			if (Array.isArray(colorForValue)) {
+				for (var index = 0; index < colorForValue.length; index ++) {
+					const compareWith = colorForValue[index];
+
+					if (RED.util.compareObjects(compareWith.value, value)) {
+						color = compareWith.color;
+						found = true;
+						break
+					}
+				}
+			} 
+			if (found === false) {
+				color = 'gray';
+			}
+
+			return { 
+				msg: {
+					color: color,
+					glow: found
+				}
+			};
+		}
+	},
+
 	initController: function($scope) {
 		$scope.flag = true;         
 
@@ -77,25 +110,10 @@ module.exports = {
 
 			var ptr = document.getElementById("led_" + $scope.$eval('$id'));
 			
-			var value = msg.payload;
+			const color = msg.color;
+			const glow = msg.glow;
 
-			var color, found = false;
-
-			if (Array.isArray(msg.colors)) {
-				for (var index = 0; index < msg.colors.length; index ++) {
-					const colorForValue = msg.colors[index];
-
-					if (colorForValue.value === value) {
-						color = colorForValue.color;
-						found = true;
-						break
-					}
-				}
-			} 
-			if (found === false) {
-				color = 'gray';
-			}
-			$(ptr).attr('style', ledStyleTemplate(color, found));
+			$(ptr).attr('style', ledStyleTemplate(color, glow));
 		};
 		$scope.$watch('msg', update);
 	}
