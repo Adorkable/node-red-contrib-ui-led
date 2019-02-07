@@ -92,7 +92,7 @@ module.exports = function(RED) {
 	                format: HTML(config, ledStyleTemplate('gray')), 
 	                group: config.group,  
 	                templateScope: "local",
-	                order: 0,
+	                order: config.order,
 	                beforeEmit: beforeEmit,
 	                initController: initController
 				});
