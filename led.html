@@ -2,29 +2,292 @@
 
 <script type="text/javascript">
 (function() {
+
+    const colorForValueDefault = [
+        {
+            'color': 'red',
+            'value': false,
+            'valueType': 'bool'
+        },
+        {
+            'color': 'green',
+            'value': true,
+            'valueType': 'bool'
+        }
+    ]
+    const defaults = {
+        group: {type: 'ui_group', required: true},
+        order: {value: 0},
+        label: {value: ''},
+
+        colorForValue: {
+            required:true,
+            // TODO: switch to object sorted by value
+            value: colorForValueDefault, 
+            validate: function(validate) {
+                if (!validate) {
+                    return false;
+                }
+                // TODO: check for duplicate values
+                for (var index = 0; index < validate.length; index ++) {
+                    const colorForValue = validate[index];
+                    if (!colorForValue.color || colorForValue.color.length === 0) {
+                        return false;
+                    }
+                    // We're allowing undefined as a valid value
+                    // if (colorForValue.value === undefined) {
+                    //     return false;
+                    // }
+                    if (!colorForValue.valueType || colorForValue.color.valueType === 0) {
+                        return false;
+                    }
+                    if (!RED.validators.typedInput(colorForValue.valueType)) {
+                        console.log("Typed", colorForValue.valueType);
+                        return false;
+                    }
+                }
+                return true;
+            }
+        },
+
+        name: {value: ''}
+    }
+
+    const label = function() {
+        return this.name || 'led';
+    }
+
+    const labelStyle = function() {
+        return this.name ? "node_label_italic" : "";
+    }
+
+    const colorForValueEditContainerId = "#node-input-colorForValue-container";
+    const contextPrefix = "node-input-colorForValue";
+
+    const rowHandleClass = contextPrefix + "-handle";
+    const colorFieldClass = contextPrefix + "-color";
+    const valueFieldClass = contextPrefix + "value";
+    const valueTypeFieldClass = contextPrefix + "-valueType";
+    const inputErrorClass = 'input-error';
+
+    const oneditprepare = function() {
+        const fieldKeyUpValidateNotEmpty = function() {
+            var value = $(this).val();
+
+            if (value && $(this).hasClass(inputErrorClass)) {
+                $(this).removeClass(inputErrorClass)
+            } else {
+                if (!value) {
+                    $(this).addClass(inputErrorClass)
+                }
+            } 
+        }
+
+        function generateValueFormRow(index, value) {
+            var requiredFieldClasses = [];
+            
+            const containerId = 'ValueFormRow-' + index
+            const elementByClassInContainer = (elementClass) => {
+                return "#" + containerId + " ." + elementClass 
+            }
+
+            var container = $('<li id="' + contextPrefix + "-" + containerId + '" />',{style:"background: #fff; margin:0; padding:8px 0px 0px; border-bottom: 1px solid #ccc;"});
+            var row = $('<div/>', {
+                style: "width: 100%; display: flex; flex-direction: row; align-items: center; padding-bottom: 8px;"
+            }).appendTo(container);
+
+            $('<i/>', {
+                class: rowHandleClass + ' fa fa-bars',
+                style: "color: #eee; cursor: move; margin-left: 3px;"
+            }).appendTo(row);
+
+            var rowColorFieldClass = colorFieldClass;
+            if (!value.color) { 
+                rowColorFieldClass = rowColorFieldClass + " " + inputErrorClass; 
+            }
+            var colorField = $('<input/>', {
+                class: rowColorFieldClass,
+                type: "text",
+                style: "width: 35%; margin-left: 30px;", 
+                placeholder: 'Color', 
+                required: true,
+                value: value.color
+            }).appendTo(row);
+
+            requiredFieldClasses.push(colorFieldClass);
+
+            colorField.keyup(fieldKeyUpValidateNotEmpty); 
+
+            var valueWrapper = $('<div/>', {
+                style: "min-width: 30%; flex-grow: 1; margin-left: 30px;",
+            });
+
+            var valueField = $('<input/>', {
+                type: 'text',
+                class: valueFieldClass,
+                // style: "min-width: 30%; flex-grow: 1; margin-left: 30px;",
+                style: "width: 100%",
+                placeholder: "Value",
+                value: value.value
+            }).appendTo(valueWrapper);
+            var valueTypeField = $('<input/>', {
+                type: 'hidden',
+                class: valueTypeFieldClass,
+                value: value.valueType
+            }).appendTo(valueWrapper);
+            valueWrapper.appendTo(row);
+
+            valueField.typedInput({
+                default: 'bool',
+                typeField: valueTypeField,
+                types: ['str','num','bool','json','bin'/*,'date','flow','global'*/] // TODO: add further support
+            })
+
+            var deleteButton = $('<a/>',
+            {
+                href: "#",
+                class: "editor-button editor-button-small", 
+                style: "margin-left: 30px; width: 20px; margin-right: 15px; right: 0px"
+            }).appendTo(row);
+            
+            $('<i/>',
+            {
+                class: "fa fa-remove",
+                style: ""
+            }).appendTo(deleteButton);
+
+            deleteButton.click(function() {
+                for (var requiredIndex = 0; requiredIndex < requiredFieldClasses.length; requiredIndex ++) {
+                    container.find("." + requiredFieldClasses[requiredIndex]).removeAttr('required')
+                }
+                container.css( { "background": "#fee" } );
+                container.fadeOut(300, function() {
+                    $(this).remove();
+                });
+            });
+
+            $(colorForValueEditContainerId).append(container);
+        }
+
+        $("#node-input-add-color").click(function() {
+            generateValueFormRow($(colorForValueEditContainerId).children().length + 1, {});
+            $(colorForValueEditContainerId).scrollTop($(colorForValueEditContainerId).get(0).scrollHeight);
+        });
+
+        if (!this.colorForValue) {
+            this.colorForValue = colorForValueDefault;
+        }
+        
+        for (var index = 0; index < this.colorForValue.length; index ++) {
+            var rowValue = this.colorForValue[index];
+            generateValueFormRow(index + 1, rowValue);
+        }
+
+        $(colorForValueEditContainerId).sortable({
+            axis: "y",
+            handle: "." + rowHandleClass,
+            cursor: "move"
+        });
+    }
+
+    const oneditsave = function() {
+        var node = this;
+
+        var colorsElement = $(colorForValueEditContainerId).children();
+        node.colorForValue = [];
+        colorsElement.each(function(i) {
+            var colorElement = $(this);
+            
+            var color = colorElement.find("." + colorFieldClass).val();
+            var value = colorElement.find("." + valueFieldClass).val();
+            var valueType = colorElement.find("." + valueTypeFieldClass).val();
+            var settings = {
+                color: color,
+                value: value,
+                valueType: valueType
+            };
+            node.colorForValue.push(settings);
+        });
+    }
+
     RED.nodes.registerType('ui_led', {
         category: 'dashboard',
         paletteLabel: 'led',
         color: 'rgb(63, 173, 181)',
-        defaults: {
-            group: {type: 'ui_group', required: true},
-            order: {value: 0},
-            label: {value: ''},
-            name: {value: ''}
-        },
+        defaults: defaults,
         inputs: 1,
         inputLabels: "value",
         outputs: 0,
         align: 'right',
-        label: function() {
-            return this.name || 'led';
-        },
-        icon: "led.png"
+        label: label,
+        labelStyle: labelStyle,
+        icon: "led.png",
+
+        oneditprepare: oneditprepare,
+        oneditsave: oneditsave
     });
 })();
 </script>
 
 <script type="text/x-red" data-template-name="ui_led">
+    <style>
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 30px;
+            height: 18px;
+        }
+        
+        .switch input {display:none;}
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 15px;
+            width: 15px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+        
+        input:checked + .slider {
+            background-color: #910000;
+        }
+        
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+        
+        input:checked + .slider:before {
+            -webkit-transform: translateX(11px);
+            -ms-transform: translateX(11px);
+            transform: translateX(11px);
+        }
+        
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+        
+        .slider.round:before {
+            border-radius: 50%;
+        }
+    </style>
+
     <div class="form-row">
         <label for="node-input-group"><i class="fa fa-table"></i> Group</label>
         <input type="text" id="node-input-group">
@@ -33,6 +296,26 @@
         <label for="node-input-label"><i class="icon-tag"></i> Label</label>
         <input type="text" id="node-input-label" placeholder="Label">
     </div>
+
+    <div class="form-row node-input-colorForValue-container-row" style="margin-bottom:0px; width:100%; min-width:520px">
+        <label style="vertical-align:top;"><i class="fa fa-list-alt"></i> Fields</label>
+        <div style="display:inline-block; width:78%; border:1px solid #ccc; border-radius:5px; box-sizing:border-box;">
+          <div style="width:100%; display: inline-block; background-color:#f3f3f3; padding-top:10px; padding-bottom:10px; border-top:0px solid; border-radius:5px 5px 0 0; border-bottom:1px solid #ccc;">
+              <div style="display:flex; flex-direction: row;">
+                <div style="width: 32px;"></div>
+                <div style="flex-grow: 1; text-align: center; float: left;">Color</div>
+                <div style="flex-grow: 1; text-align: center; float: left;">Value</div>
+              </div>
+          </div>
+          <div id="node-input-colorForValue-container-div" style=" height: 257px; padding: 5px; overflow-y: scroll;">
+            <ol id="node-input-colorForValue-container" style=" list-style-type:none; margin: 0;"></ol>
+          </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <a href="#" class="editor-button editor-button-small" id="node-input-add-color" style="margin-top: 4px; margin-left: 103px;"><i class="fa fa-plus"></i> <span>Color</span></a>
+    </div>
+
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
