@@ -1,1 +1,4 @@
 node_modules
+/example/userDir/.flows.json.backup
+/example/userDir/.config.json.backup
+/example/userDir/.config.json
