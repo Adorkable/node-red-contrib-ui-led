@@ -1,0 +1,19 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "node-red": "^0.20.2",
+    "node-red-contrib-ui-led": "file:../",
+    "node-red-dashboard": "^2.13.2",
+    "nodemon": "^1.18.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon node_modules/.bin/node-red --userDir ./userDir"
+  },
+  "author": "",
+  "license": "ISC"
+}
