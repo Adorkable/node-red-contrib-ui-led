@@ -18,17 +18,29 @@
     const defaults = {
         group: {type: 'ui_group', required: true},
         order: {value: 0},
-        width: {value: 0, validate: function(v) {
-                var width = v||0;
-                var currentGroup = $('#node-input-group').val()||this.group;
+        width: {value: 0, validate: function(validate) {
+                var width = validate || 0;
+                var currentGroup = $('#node-input-group').val() || this.group;
+
                 var groupNode = RED.nodes.node(currentGroup);
-                var valid = !groupNode || +width <= +groupNode.width;
-                $("#node-input-size").toggleClass("input-error",!valid);
+                const fitsInGroup = (!groupNode || +width <= +groupNode.width);
+
+                const fitsWithLabel = (!this.label || width > 1 || width == 0);
+                var valid = fitsInGroup && fitsWithLabel;
+                $("#node-input-size").toggleClass("input-error", !valid);
+                $("#node-input-label").toggleClass("input-error", !fitsWithLabel);
                 return valid;
             }
         },
         height: {value: 0},
-        label: {value: ''},
+        label: {value: '', validate: function(validate) {
+                const fitsWithWidth = (!validate || this.width > 1 || this.width == 0);
+                var valid = fitsWithWidth;
+                $("#node-input-label").toggleClass("input-error", !valid);
+                $("#node-input-size").toggleClass("input-error", !fitsWithWidth);
+                return valid;
+            }
+        },
 
         colorForValue: {
             required:true,
