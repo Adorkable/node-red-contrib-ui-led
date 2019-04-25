@@ -34,7 +34,9 @@ module.exports = function(RED) {
 
 			if (ledUtility.checkConfig(config, node)) {
 	            var done = ui.addWidget({                   
-	                node: node,    
+					node: node,    
+					width: config.width || config.group.width || undefined,
+					height: config.height || 1,
 	                format: ledUtility.HTML(config, ledUtility.ledStyle('gray', false)), 
 	                group: config.group,  
 	                templateScope: "local",

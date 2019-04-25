@@ -18,6 +18,16 @@
     const defaults = {
         group: {type: 'ui_group', required: true},
         order: {value: 0},
+        width: {value: 0, validate: function(v) {
+                var width = v||0;
+                var currentGroup = $('#node-input-group').val()||this.group;
+                var groupNode = RED.nodes.node(currentGroup);
+                var valid = !groupNode || +width <= +groupNode.width;
+                $("#node-input-size").toggleClass("input-error",!valid);
+                return valid;
+            }
+        },
+        height: {value: 0},
         label: {value: ''},
 
         colorForValue: {
@@ -71,6 +81,12 @@
     const inputErrorClass = 'input-error';
 
     const oneditprepare = function() {
+        $("#node-input-size").elementSizer({
+            width: "#node-input-width",
+            height: "#node-input-height",
+            group: "#node-input-group"
+        });
+        
         const fieldKeyUpValidateNotEmpty = function() {
             var value = $(this).val();
 
@@ -292,6 +308,14 @@
         <label for="node-input-group"><i class="fa fa-table"></i> Group</label>
         <input type="text" id="node-input-group">
     </div>
+
+    <div class="form-row">
+        <label><i class="fa fa-object-group"></i> Size</label>
+        <input type="hidden" id="node-input-width">
+        <input type="hidden" id="node-input-height">
+        <button class="editor-button" id="node-input-size"></button>
+    </div>
+
     <div class="form-row">
         <label for="node-input-label"><i class="icon-tag"></i> Label</label>
         <input type="text" id="node-input-label" placeholder="Label">
