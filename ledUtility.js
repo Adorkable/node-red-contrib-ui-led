@@ -7,7 +7,10 @@ module.exports = {
     HTML: function(config, ledStyle) { 
 		// text-align: ` + config.labelAlignment + `
 		const name = () => {
-			return `<span class=\"name\">` + config.label + `</span>`;
+			if (typeof config.label === "string" && config.label !== '') {
+				return `<span class=\"name\">` + config.label + `</span>`;
+			}
+			return '';
 		};
 		const optionalName = (display) => {
 			if (display) {
