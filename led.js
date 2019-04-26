@@ -16,7 +16,7 @@ module.exports = function(RED) {
             RED.nodes.createNode(this, config);                       
 
 			var node = this;
-
+			 
 			this.colorForValue = config.colorForValue.map(function(colorForValue) {
 				return {
 					color: colorForValue.color,

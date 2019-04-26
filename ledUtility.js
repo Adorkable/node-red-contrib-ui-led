@@ -24,9 +24,9 @@ module.exports = {
 				}
 			</style>
 			<div class="led">
-				<span class="name">` + config.label + `</span>
-			    <span class="led" id="led_{{$id}}" style="` + ledStyle + `">   
-			    </span>
+				` + (config.labelPlacement === 'right' ? '' : "<span class=\"name\">" + config.label + "</span>") + `
+				<span class="led" id="led_{{$id}}" style="` + ledStyle + `"></span>
+				` + (config.labelPlacement === 'right' ? "<span class=\"name\">" + config.label + "</span>" : '') + `
 			</div>`;
 	},
 	

@@ -41,6 +41,7 @@
                 return valid;
             }
         },
+        labelPlacement: {value: 'left'},
 
         colorForValue: {
             required:true,
@@ -331,6 +332,14 @@
     <div class="form-row">
         <label for="node-input-label"><i class="icon-tag"></i> Label</label>
         <input type="text" id="node-input-label" placeholder="Label">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-labelPlacement"><i class="icon-tag"></i> Label Placement</label>
+        <select id="node-input-labelPlacement">
+            <option value="left">left</option>
+            <option value="right">right</option>
+        </select>
     </div>
 
     <div class="form-row node-input-colorForValue-container-row" style="margin-bottom:0px; width:100%; min-width:520px">
