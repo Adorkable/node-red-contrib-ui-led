@@ -39,6 +39,7 @@ module.exports = {
 				div.led_{{$id}} > span.name {
 					flex-grow: 1;
 					text-align: ` + config.labelAlignment + `;
+				    margin-` + config.labelPlacement + `: 6px;
 				}
 			</style>
 			<div class="led_{{$id}}">
