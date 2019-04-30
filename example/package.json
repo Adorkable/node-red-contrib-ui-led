@@ -7,7 +7,7 @@
     "node-red": "^0.20.5",
     "node-red-contrib-ui-led": "file:../",
     "node-red-dashboard": "^2.14.0",
-    "nodemon": "^1.18.9"
+    "nodemon": "^1.18.11"
   },
   "devDependencies": {},
   "scripts": {
