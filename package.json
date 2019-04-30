@@ -1,12 +1,12 @@
 {
   "name": "node-red-contrib-ui-led",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A simple LED status indicator for the Node-RED Dashboard",
   "main": "led.js",
   "author": "Ian G <yo.ian.g@gmail.com>",
   "license": "Apache-2.0",
   "dependencies": {
-    "node-red-dashboard": "2.13.x"
+    "node-red-dashboard": "2.14.x"
   },
   "keywords": [
     "node-red",
