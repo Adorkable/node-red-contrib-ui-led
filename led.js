@@ -24,6 +24,18 @@ module.exports = function(RED) {
 				}
 			});
 
+			this.toString = function() {
+				var result = "LED";
+				if (config.name) {
+					result += " name: " + config.label;
+				}
+				if (config.label) {
+					result += " label: " + config.label;
+				}
+				// console.log("This", this, "\nConfig", config);
+				return result;
+			};
+
 			if (ledUtility.checkConfig(config, node)) {
 	            var done = ui.addWidget({                   
 					node: node,    
