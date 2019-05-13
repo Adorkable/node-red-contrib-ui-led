@@ -2,13 +2,10 @@ module.exports = function(RED) {
 	'use strict';
 	var ledUtility = require('./ledUtility');
 
-	/**
-	 * LED Node construction function
-	 * @param {object} config Node configuration object
-	 */
+	var ui = undefined; 
+
     function LEDNode(config) {
         try {
-			var ui = undefined; 
 			if(ui === undefined) {
                 ui = RED.require("node-red-dashboard")(RED);
             }
