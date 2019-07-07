@@ -28,7 +28,7 @@
     "url": "git+https://github.com/Adorkable/node-red-contrib-ui-led.git"
   },
   "devDependencies": {
-    "eslint": "5.x",
-    "eslint-plugin-angular": "4.x"
+    "eslint": "^5.16.0",
+    "eslint-plugin-angular": "^4.0.1"
   }
 }

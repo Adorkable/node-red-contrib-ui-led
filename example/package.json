@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "node-red": "^0.20.5",
+    "node-red": "^0.20.7",
     "node-red-contrib-ui-led": "file:../",
-    "node-red-dashboard": "^2.14.0",
-    "nodemon": "^1.18.11"
+    "node-red-dashboard": "^2.15.5",
+    "nodemon": "^1.19.1"
   },
   "devDependencies": {},
   "scripts": {
