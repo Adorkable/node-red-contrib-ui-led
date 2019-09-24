@@ -79,8 +79,14 @@ module.exports = {
 
 	beforeEmit: function (node, RED) {
 		return function (msg, value) {
-			var updatedMessage = msg;
-			const colorForValue = node.colorForValue;
+			if (node.allowColorForValueInMessage === true) {
+				var updatedMessage = msg;
+				const msgColorForValue = updatedMessage.colorForValue;
+				if (msgColorForValue !== undefined) {
+					node.overrideColorForValue = msgColorForValue;
+				}
+			}
+			const colorForValue = node.overrideColorForValue || node.colorForValue;
 
 			var color, found = false;
 
@@ -94,6 +100,9 @@ module.exports = {
 						break
 					}
 				}
+			} else if (typeof colorForValue === 'object') {
+				color = colorForValue[value];
+				found = color !== undefined && color !== null;
 			}
 			if (found === false) {
 				color = 'gray';

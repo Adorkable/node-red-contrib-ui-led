@@ -72,6 +72,8 @@
                 return true;
             }
         },
+        allowColorForValueInMessage: {value: false},
+
         name: {value: ''}
     }
 
@@ -357,7 +359,7 @@
               <div style="display:flex; flex-direction: row;">
                 <div style="width:32px;"></div>
                 <div style="flex-grow:1; text-align:center; float:left;">msg.payload</div>
-                <div style="flex-grow:1; text-align:center; float:left;">color</div>
+                <div style="flex-grow:1; text-align:center; float:left;">Color</div>
                 <div style="width:32px;"></div>
               </div>
           </div>
@@ -371,7 +373,12 @@
     </div>
 
     <div class="form-row">
-        <label for="node-input-name" style="width:110px;"><i class="fa fa-tag"></i> <span data-i18n="editor:common.label.name"></span></label>
+        <label for="node-input-allowColorForValueInMessage"><i class="fa fa-palette"></i> Allow Color For Value map in msg</label>
+        <input type="checkbox" id="node-input-allowColorForValueInMessage">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-name" style="width: 100px;"><i class="fa fa-tag"></i> <span data-i18n="editor:common.label.name"></span></label>
         <input type="text" id="node-input-name" data-i18n="[placeholder]editor:common.label.name">
     </div>
 </script>
