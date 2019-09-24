@@ -23,6 +23,7 @@ module.exports = function(RED) {
 					value: RED.util.evaluateNodeProperty(colorForValue.value, colorForValue.valueType, node)
 				}
 			});
+			this.allowColorForValueInMessage = config.allowColorForValueInMessage;
 
 			this.toString = function() {
 				var result = "LED";
@@ -44,7 +45,8 @@ module.exports = function(RED) {
 	                format: ledUtility.HTML(config, ledUtility.ledStyle('gray', false)), 
 	                group: config.group,  
 	                templateScope: "local",
-	                order: config.order,
+					order: config.order,
+					emitOnlyNewValues: false,
 	                beforeEmit: ledUtility.beforeEmit(node, RED),
 	                initController: ledUtility.initController
 				});
