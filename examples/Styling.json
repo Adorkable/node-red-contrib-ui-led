@@ -1,0 +1,191 @@
+[
+    {
+        "id": "8de3835a.aa386",
+        "type": "ui_led",
+        "z": "23fae03e.fa9e9",
+        "group": "2612c343.79af2c",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Left P Left A",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "red",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "green",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "name": "Label Left P Left A",
+        "x": 200,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "1beffb2a.f69395",
+        "type": "ui_led",
+        "z": "23fae03e.fa9e9",
+        "group": "2612c343.79af2c",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "label": "Right P Left A",
+        "labelPlacement": "right",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "red",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "green",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "name": "Label Right P Left A",
+        "x": 240,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "5ed10df9.4609a4",
+        "type": "ui_led",
+        "z": "23fae03e.fa9e9",
+        "group": "2612c343.79af2c",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "Left P Right A",
+        "labelPlacement": "left",
+        "labelAlignment": "right",
+        "colorForValue": [
+            {
+                "color": "red",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "green",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "name": "Label Left P Right A",
+        "x": 260,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "f57a35df.a539d8",
+        "type": "ui_led",
+        "z": "23fae03e.fa9e9",
+        "group": "2612c343.79af2c",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "label": "Right P Right A",
+        "labelPlacement": "right",
+        "labelAlignment": "right",
+        "colorForValue": [
+            {
+                "color": "red",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "green",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "name": "Label Right P Right A",
+        "x": 300,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "1cef38fc.08d8c7",
+        "type": "ui_led",
+        "z": "23fae03e.fa9e9",
+        "group": "2612c343.79af2c",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "Left P Center A",
+        "labelPlacement": "left",
+        "labelAlignment": "center",
+        "colorForValue": [
+            {
+                "color": "red",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "green",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "name": "Label Left P Center A",
+        "x": 220,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "a759c566.734118",
+        "type": "ui_led",
+        "z": "23fae03e.fa9e9",
+        "group": "2612c343.79af2c",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "label": "Right P Center A",
+        "labelPlacement": "right",
+        "labelAlignment": "center",
+        "colorForValue": [
+            {
+                "color": "red",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "green",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "name": "Label Right P Center A",
+        "x": 280,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "2612c343.79af2c",
+        "type": "ui_group",
+        "z": "",
+        "name": "LED example - Styling",
+        "tab": "a27f71ee.672e7",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "a27f71ee.672e7",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
