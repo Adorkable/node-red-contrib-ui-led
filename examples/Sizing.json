@@ -1,0 +1,288 @@
+[
+    {
+        "id": "18f6c18.7bb303f",
+        "type": "ui_led",
+        "z": "79f94315.37bdbc",
+        "group": "396876ec.369d7a",
+        "order": 1,
+        "width": "1",
+        "height": "5",
+        "label": "",
+        "colorForValue": [
+            {
+                "color": "red",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "green",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "name": "1x5",
+        "x": 230,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "4dd3707f.db897",
+        "type": "ui_led",
+        "z": "79f94315.37bdbc",
+        "group": "46947ad.658bf84",
+        "order": 2,
+        "width": "6",
+        "height": "1",
+        "label": "6x1",
+        "colorForValue": [
+            {
+                "color": "red",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "green",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "name": "6x1",
+        "x": 430,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "8e947748.05ab28",
+        "type": "ui_led",
+        "z": "79f94315.37bdbc",
+        "group": "396876ec.369d7a",
+        "order": 2,
+        "width": "2",
+        "height": "5",
+        "label": "2x5",
+        "colorForValue": [
+            {
+                "color": "red",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "green",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "name": "2x5",
+        "x": 230,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "fef02acc.5e5b38",
+        "type": "ui_led",
+        "z": "79f94315.37bdbc",
+        "group": "46947ad.658bf84",
+        "order": 2,
+        "width": "6",
+        "height": "2",
+        "label": "6x2",
+        "colorForValue": [
+            {
+                "color": "red",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "green",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "name": "6x2",
+        "x": 430,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "d244b7a2.70eeb8",
+        "type": "ui_led",
+        "z": "79f94315.37bdbc",
+        "group": "46947ad.658bf84",
+        "order": 2,
+        "width": "6",
+        "height": "6",
+        "label": "6x6",
+        "colorForValue": [
+            {
+                "color": "red",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "green",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "name": "6x6",
+        "x": 430,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "dd5464e2.e899a8",
+        "type": "ui_led",
+        "z": "79f94315.37bdbc",
+        "group": "46947ad.658bf84",
+        "order": 2,
+        "width": "3",
+        "height": "3",
+        "label": "3x3",
+        "colorForValue": [
+            {
+                "color": "red",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "green",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "name": "3x3",
+        "x": 430,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "32c350aa.5a274",
+        "type": "ui_led",
+        "z": "79f94315.37bdbc",
+        "group": "396876ec.369d7a",
+        "order": 3,
+        "width": "3",
+        "height": "5",
+        "label": "3x5",
+        "colorForValue": [
+            {
+                "color": "red",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "green",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "name": "3x5",
+        "x": 230,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "298c65d5.daa7ea",
+        "type": "ui_led",
+        "z": "79f94315.37bdbc",
+        "group": "396876ec.369d7a",
+        "order": 4,
+        "width": "4",
+        "height": "5",
+        "label": "4x5",
+        "colorForValue": [
+            {
+                "color": "red",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "green",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "name": "4x5",
+        "x": 230,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "ab88409.85f80c",
+        "type": "inject",
+        "z": "79f94315.37bdbc",
+        "name": "",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 50,
+        "y": 100,
+        "wires": [
+            [
+                "18f6c18.7bb303f",
+                "32c350aa.5a274",
+                "fef02acc.5e5b38",
+                "dd5464e2.e899a8"
+            ]
+        ]
+    },
+    {
+        "id": "a42295d1.4c40d8",
+        "type": "inject",
+        "z": "79f94315.37bdbc",
+        "name": "",
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 50,
+        "y": 180,
+        "wires": [
+            [
+                "8e947748.05ab28",
+                "298c65d5.daa7ea",
+                "4dd3707f.db897",
+                "d244b7a2.70eeb8"
+            ]
+        ]
+    },
+    {
+        "id": "396876ec.369d7a",
+        "type": "ui_group",
+        "z": "",
+        "name": "LED example - Sizing - Tall",
+        "tab": "a27f71ee.672e7",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "46947ad.658bf84",
+        "type": "ui_group",
+        "z": "",
+        "name": "LED example - Sizing - Wide",
+        "tab": "a27f71ee.672e7",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "a27f71ee.672e7",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
