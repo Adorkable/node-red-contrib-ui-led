@@ -1,0 +1,262 @@
+[
+    {
+        "id": "1f7b06cb.8d7e49",
+        "type": "function",
+        "z": "72f153f9.2cca8c",
+        "name": "optionally store colorForValue",
+        "func": "if (msg.colorForValue !== undefined) {\n    global.set(\"colorForValue\", msg.colorForValue);\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 650,
+        "y": 480,
+        "wires": [
+            [
+                "c62e1b9b.7df298"
+            ]
+        ]
+    },
+    {
+        "id": "c7637ee6.1a73b",
+        "type": "ui_button",
+        "z": "72f153f9.2cca8c",
+        "name": "true",
+        "group": "688be5f8.e8e01c",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "true",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "",
+        "x": 390,
+        "y": 340,
+        "wires": [
+            [
+                "1f7b06cb.8d7e49"
+            ]
+        ]
+    },
+    {
+        "id": "61e8a2b2.0a38ec",
+        "type": "ui_button",
+        "z": "72f153f9.2cca8c",
+        "name": "false",
+        "group": "688be5f8.e8e01c",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "false",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "topic": "",
+        "x": 390,
+        "y": 380,
+        "wires": [
+            [
+                "1f7b06cb.8d7e49"
+            ]
+        ]
+    },
+    {
+        "id": "853ce247.e99db",
+        "type": "ui_led",
+        "z": "72f153f9.2cca8c",
+        "group": "688be5f8.e8e01c",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "write / read example",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "red",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "green",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": true,
+        "name": "write / read example",
+        "x": 940,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "f614fc25.8b883",
+        "type": "ui_button",
+        "z": "72f153f9.2cca8c",
+        "name": "true",
+        "group": "688be5f8.e8e01c",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "true + P / O",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "",
+        "x": 130,
+        "y": 440,
+        "wires": [
+            [
+                "8d691358.01419"
+            ]
+        ]
+    },
+    {
+        "id": "d0baa947.546268",
+        "type": "ui_button",
+        "z": "72f153f9.2cca8c",
+        "name": "true",
+        "group": "688be5f8.e8e01c",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "true + B / Y",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "",
+        "x": 130,
+        "y": 480,
+        "wires": [
+            [
+                "aff8dbe4.a6a598"
+            ]
+        ]
+    },
+    {
+        "id": "8d691358.01419",
+        "type": "function",
+        "z": "72f153f9.2cca8c",
+        "name": "+ msg.colorForValue[P/O]",
+        "func": "msg.colorForValue = {};\nmsg.colorForValue[true] = \"purple\";\nmsg.colorForValue[false] = \"orange\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 440,
+        "wires": [
+            [
+                "1f7b06cb.8d7e49"
+            ]
+        ]
+    },
+    {
+        "id": "aff8dbe4.a6a598",
+        "type": "function",
+        "z": "72f153f9.2cca8c",
+        "name": "+ msg.colorForValue[B/Y]",
+        "func": "msg.colorForValue = {};\nmsg.colorForValue[true] = \"blue\";\nmsg.colorForValue[false] = \"yellow\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 480,
+        "wires": [
+            [
+                "1f7b06cb.8d7e49"
+            ]
+        ]
+    },
+    {
+        "id": "59c9ecf7.56a054",
+        "type": "ui_button",
+        "z": "72f153f9.2cca8c",
+        "name": "true",
+        "group": "688be5f8.e8e01c",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "true - msg.colorForValue",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "",
+        "x": 130,
+        "y": 540,
+        "wires": [
+            [
+                "bd18cc96.95e84"
+            ]
+        ]
+    },
+    {
+        "id": "bd18cc96.95e84",
+        "type": "function",
+        "z": "72f153f9.2cca8c",
+        "name": "- msg.colorForValue",
+        "func": "msg.colorForValue = null;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 340,
+        "y": 540,
+        "wires": [
+            [
+                "1f7b06cb.8d7e49"
+            ]
+        ]
+    },
+    {
+        "id": "c62e1b9b.7df298",
+        "type": "function",
+        "z": "72f153f9.2cca8c",
+        "name": "get optionally stored colorForValue",
+        "func": "var colorForValue = global.get(\"colorForValue\");\nif (colorForValue !== undefined) {\n    msg.colorForValue = colorForValue;\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 660,
+        "y": 540,
+        "wires": [
+            [
+                "853ce247.e99db"
+            ]
+        ]
+    },
+    {
+        "id": "688be5f8.e8e01c",
+        "type": "ui_group",
+        "z": "",
+        "name": "LED example - Allow Colors for Values in msg - stored",
+        "tab": "a27f71ee.672e7",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "a27f71ee.672e7",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
