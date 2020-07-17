@@ -6,7 +6,7 @@
   "author": "Ian G <yo.ian.g@gmail.com>",
   "license": "Apache-2.0",
   "peerDependencies": {
-    "node-red-dashboard": "2.14.x"
+    "node-red-dashboard": "2.23.x"
   },
   "keywords": [
     "node-red",
@@ -28,7 +28,7 @@
     "url": "git+https://github.com/Adorkable/node-red-contrib-ui-led.git"
   },
   "devDependencies": {
-    "eslint": "^5.16.0",
+    "eslint": "^7.4.0",
     "eslint-plugin-angular": "^4.0.1"
   }
 }
