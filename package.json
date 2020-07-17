@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-ui-led",
-  "version": "0.3.1",
+  "version": "0.3.3",
   "description": "A simple LED status indicator for the Node-RED Dashboard",
   "main": "led.js",
   "author": "Ian G <yo.ian.g@gmail.com>",
