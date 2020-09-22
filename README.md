@@ -5,6 +5,7 @@ A simple LED status indicator for the Node-RED Dashboard
 [![dev-dependencies](https://img.shields.io/david/dev/adorkable/node-red-contrib-ui-led.svg?style=flat-square)](https://github.com/Adorkable/node-red-contrib-ui-led/network/dependencies)
 [![optional-dependencies](https://img.shields.io/david/optional/adorkable/node-red-contrib-ui-led.svg?style=flat-square)](https://github.com/Adorkable/node-red-contrib-ui-led/network/dependencies)
 [![peer-dependencies](https://img.shields.io/david/peer/adorkable/node-red-contrib-ui-led.svg?style=flat-square)](https://github.com/Adorkable/node-red-contrib-ui-led/network/dependencies)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FAdorkable%2Fnode-red-contrib-ui-led.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FAdorkable%2Fnode-red-contrib-ui-led?ref=badge_shield)
 
 ![Examples Image](images/examples.png)
 
@@ -52,6 +53,9 @@ msg.colorForValue[true] = "purple";
 msg.colorForValue[false] = "orange";
 ```
 
-### Further Examples
+## Further Examples
 
 To see usages already set up check out the examples included with the project by using _Import_ in your Node-RED editor!
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FAdorkable%2Fnode-red-contrib-ui-led.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FAdorkable%2Fnode-red-contrib-ui-led?ref=badge_large)
