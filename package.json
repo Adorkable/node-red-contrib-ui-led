@@ -38,12 +38,12 @@
     "lint:fix": "prettier --ignore-path .eslintignore --write '**/*.{js,ts,md}'; eslint --ext .js,.ts . --fix"
   },
   "dependencies": {
-    "@types/jqueryui": "^1.12.14"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.0.0",
     "@types/express": "^4.17.9",
     "@types/jest": "^26.0.15",
+    "@types/jqueryui": "^1.12.14",
     "@types/node": "^14.14.10",
     "@types/node-red": "^1.1.1",
     "@types/node-red-node-test-helper": "^0.2.1",
