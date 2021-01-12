@@ -12,9 +12,9 @@ A simple LED status indicator for the Node-RED Dashboard
 
 The node uses `msg.payload`'s value to determine status. By default:
 
-* `msg.payload` === `true` - **Green**
-* `msg.payload` === `false` - **Red**
-* no `msg` received yet or `msg.payload` !== `true` and `msg.payload` !== `false` - **Gray**
+- `msg.payload` === `true` - **Green**
+- `msg.payload` === `false` - **Red**
+- no `msg` received yet or `msg.payload` !== `true` and `msg.payload` !== `false` - **Gray**
 
 ## Install
 
@@ -51,9 +51,9 @@ The format should be `value` => `color`, ie an object whose key values return co
 Example:
 
 ```js
-msg.colorForValue = {};
-msg.colorForValue[true] = "purple";
-msg.colorForValue[false] = "orange";
+msg.colorForValue = {}
+msg.colorForValue[true] = 'purple'
+msg.colorForValue[false] = 'orange'
 ```
 
 ## Further Examples
@@ -66,4 +66,4 @@ To see usages already set up check out the examples included with the project by
 
 ## Thanks to
 
-* [@alexk111](https://github.com/alexk111) for his great [Node-RED Typescript Starter](https://github.com/alexk111/node-red-node-typescript-starter) which made it a breeze to convert the project over to Typescript
+- [@alexk111](https://github.com/alexk111) for his great [Node-RED Typescript Starter](https://github.com/alexk111/node-red-node-typescript-starter) which made it a breeze to convert the project over to Typescript

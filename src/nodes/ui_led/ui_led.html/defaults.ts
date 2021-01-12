@@ -84,7 +84,9 @@ const validateColorForValueFactory = (RED: EditorRED) => {
   }
 }
 
-export const defaultsFactory = (RED: EditorRED): NodePropertiesDef<LEDEditorNodeProperties> => {
+export const defaultsFactory = (
+  RED: EditorRED
+): NodePropertiesDef<LEDEditorNodeProperties> => {
   return {
     order: { value: 0 },
     group: { value: 'ui_group', type: 'ui_group', required: true },

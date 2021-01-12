@@ -4,7 +4,7 @@ import { IChildScope } from '../angular'
 export declare type Payload = any
 export declare interface PayloadUpdate {
   update: true
-  
+
   /**
    * if this update includes a new value
    */
@@ -13,7 +13,7 @@ export declare interface PayloadUpdate {
    * updated value
    */
   updatedValues: Payload
-} 
+}
 
 export declare interface UITemplateScope extends IChildScope {
   msg: NodeMessage | void
@@ -41,32 +41,45 @@ export declare interface UiEvents {
    * @returns cancel function
    */
   on: (event: any, handler: any) => () => void
-} 
+}
 
-export declare type Convert = (value: Payload, oldValue: Payload, msg: NodeMessage, controlStep: number) => Payload | PayloadUpdate | undefined
+export declare type Convert = (
+  value: Payload,
+  oldValue: Payload,
+  msg: NodeMessage,
+  controlStep: number
+) => Payload | PayloadUpdate | undefined
 
 export declare type CustomMessage = NodeMessage & Record<string, any>
 
 export declare interface BeforeEmitMessage extends CustomMessage {
-  ui_control?: Record <string, any> | void
+  ui_control?: Record<string, any> | void
 }
 export declare interface Emit extends Record<string, any> {
   msg: Payload
 
   id?: number | undefined
-} 
-export declare type BeforeEmit = (msg: BeforeEmitMessage, value: Payload) => Emit
+}
+export declare type BeforeEmit = (
+  msg: BeforeEmitMessage,
+  value: Payload
+) => Emit
 
 export declare type ConvertBack = (value: Payload) => Payload
 
 export declare type BeforeSend = (
-    toSend: { payload: Payload },
-    msg: CustomMessage
-  ) => NodeMessage | void
+  toSend: { payload: Payload },
+  msg: CustomMessage
+) => NodeMessage | void
 
-export declare type InitController = (scope: UITemplateScope, events: UiEvents) => void
+export declare type InitController = (
+  scope: UITemplateScope,
+  events: UiEvents
+) => void
 
-export declare interface WidgetOptions<TCreds extends Record<string, unknown> = Record<string, unknown>> {
+export declare interface WidgetOptions<
+  TCreds extends Record<string, unknown> = Record<string, unknown>
+> {
   /** [node] - the node that represents the control on a flow */
   node: Node<TCreds>
 
@@ -113,10 +126,10 @@ export declare interface WidgetOptions<TCreds extends Record<string, unknown> = 
    */
   persistantFrontEndValue?: boolean | void
 
-  /** 
-   * [convert] - callback to convert the value before sending it to the front-end 
+  /**
+   * [convert] - callback to convert the value before sending it to the front-end
    * @returns `Payload`, `PayloadUpdate` or `undefined`. If `undefined` is returned `oldValue` is used and marked as a new value
-  */
+   */
   convert?: Convert | void
 
   /** [beforeEmit] - callback to prepare the message that is emitted to the front-end */
@@ -132,12 +145,14 @@ export declare interface WidgetOptions<TCreds extends Record<string, unknown> = 
   initController?: InitController | void
 }
 
-export declare interface NodeRedUI<TCreds extends Record<string, unknown> = Record<string, unknown>> {
+export declare interface NodeRedUI<
+  TCreds extends Record<string, unknown> = Record<string, unknown>
+> {
   addWidget(options: WidgetOptions<TCreds>): () => void
 }
 
 export declare interface GroupNodeDef {
-  width: number,
+  width: number
   height: number
 }
 

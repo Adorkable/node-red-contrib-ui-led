@@ -1,4 +1,4 @@
-import { Payload } from "../../../types/node-red-dashboard"
+import { Payload } from '../../../types/node-red-dashboard'
 
 export interface LEDNodeOptions {
   label: string

@@ -1,5 +1,12 @@
 import nodeRed, { NodeAPI } from 'node-red'
-import { BeforeEmitMessage, Emit, InitController, Payload, UiEvents, UITemplateScope } from '../../types/node-red-dashboard'
+import {
+  BeforeEmitMessage,
+  Emit,
+  InitController,
+  Payload,
+  UiEvents,
+  UITemplateScope
+} from '../../types/node-red-dashboard'
 import { ObserveCallback, WebKitMutationObserver } from './miscellanious'
 
 import { ColorForValueArray } from './shared/types'
@@ -22,7 +29,7 @@ const getColorForValue = (
     if (Array.isArray(colorForValue)) {
       for (let index = 0; index < colorForValue.length; index++) {
         const compareWith = colorForValue[index]
-        
+
         if (RED.util.compareObjects(compareWith.value, value)) {
           color = compareWith.color
           found = true
@@ -76,17 +83,20 @@ export const beforeEmitFactory = (
 }
 
 // TODO: why is initController stringed and evaled??? we have to move erryone into this file :/
-export const initController: InitController = ($scope: UITemplateScope, _events: UiEvents): void => {
+export const initController: InitController = (
+  $scope: UITemplateScope,
+  _events: UiEvents
+): void => {
   $scope.flag = true
 
   // TODO: From miscellanious.ts, we need to resolve this issue
-  const observeDOMFactory = (): ((observe: Document, callback: ObserveCallback) => void) => {
+  const observeDOMFactory = (): ((
+    observe: Document,
+    callback: ObserveCallback
+  ) => void) => {
     const MutationObserver = window.MutationObserver || WebKitMutationObserver
 
-    return (
-      observe: Document,
-      callback: ObserveCallback
-    ) => {
+    return (observe: Document, callback: ObserveCallback) => {
       if (!observe || !(observe.nodeType === 1)) {
         return
       }
