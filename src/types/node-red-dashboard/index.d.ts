@@ -1,4 +1,70 @@
 import { Node, NodeMessage } from 'node-red'
+import { IChildScope } from '../angular'
+
+export declare type Payload = any
+export declare interface PayloadUpdate {
+  update: true
+  
+  /**
+   * if this update includes a new value
+   */
+  newPoint: boolean
+  /**
+   * updated value
+   */
+  updatedValues: Payload
+} 
+
+export declare interface UITemplateScope extends IChildScope {
+  msg: NodeMessage | void
+
+  send: (msg: NodeMessage) => void
+
+  theme: Theme | void
+
+  width: string | void
+  height: string | void
+  label: string | void
+
+  flag: boolean | void
+
+  $destroy: () => void
+}
+
+// TODO: fill out types: https://github.com/node-red/node-red-dashboard/blob/d3bbcd5e0b24d9f0cf1425e1790e3c9bfcc28f0d/src/services/events.js
+export declare interface UiEvents {
+  id: string
+  connect: (onuiloaded: any, replaydone: any) => void
+  emit: (event: any, msg: any) => void
+
+  /**
+   * @returns cancel function
+   */
+  on: (event: any, handler: any) => () => void
+} 
+
+export declare type Convert = (value: Payload, oldValue: Payload, msg: NodeMessage, controlStep: number) => Payload | PayloadUpdate | undefined
+
+export declare type CustomMessage = NodeMessage & Record<string, any>
+
+export declare interface BeforeEmitMessage extends CustomMessage {
+  ui_control?: Record <string, any> | void
+}
+export declare interface Emit extends Record<string, any> {
+  msg: Payload
+
+  id?: number | undefined
+} 
+export declare type BeforeEmit = (msg: BeforeEmitMessage, value: Payload) => Emit
+
+export declare type ConvertBack = (value: Payload) => Payload
+
+export declare type BeforeSend = (
+    toSend: { payload: Payload },
+    msg: CustomMessage
+  ) => NodeMessage | void
+
+export declare type InitController = (scope: UITemplateScope, events: UiEvents) => void
 
 export declare interface WidgetOptions<TCreds extends Record<string, unknown> = Record<string, unknown>> {
   /** [node] - the node that represents the control on a flow */
@@ -47,25 +113,37 @@ export declare interface WidgetOptions<TCreds extends Record<string, unknown> = 
    */
   persistantFrontEndValue?: boolean | void
 
-  /** [convert] - callback to convert the value before sending it to the front-end */
-  convert?: (value: any) => any
+  /** 
+   * [convert] - callback to convert the value before sending it to the front-end 
+   * @returns `Payload`, `PayloadUpdate` or `undefined`. If `undefined` is returned `oldValue` is used and marked as a new value
+  */
+  convert?: Convert | void
 
   /** [beforeEmit] - callback to prepare the message that is emitted to the front-end */
-  beforeEmit?: (msg: NodeMessage & Record<string, any>, value: any) => any
+  beforeEmit?: BeforeEmit | void
 
   /** [convertBack] - callback to convert the message from front-end before sending it to the next connected node */
-  convertBack?: (value: any) => any
+  convertBack?: ConvertBack | void
 
   /** [beforeSend] - callback to prepare the message that is sent to the output */
-  beforeSend?: (
-    toSend: { payload: any },
-    msg: NodeMessage & Record<string, any>
-  ) => NodeMessage
+  beforeSend?: BeforeSend | void
 
   /** [initController] - callback to initialize in controller */
-  initController?: any
+  initController?: InitController | void
 }
 
 export declare interface NodeRedUI<TCreds extends Record<string, unknown> = Record<string, unknown>> {
   addWidget(options: WidgetOptions<TCreds>): () => void
 }
+
+export declare interface GroupNodeDef {
+  width: number,
+  height: number
+}
+
+export declare interface GroupNodeInstance extends Node {
+  config: GroupNodeDef
+}
+
+// TODO: fill in
+export declare type Theme = any

@@ -1,5 +1,6 @@
+import { NodeMessage } from '@node-red/registry'
 import { NodeInitializer } from 'node-red'
-import { NodeRedUI } from '../../types/node-red-dashboard'
+import { GroupNodeInstance, NodeRedUI, Payload } from '../../types/node-red-dashboard'
 
 import { beforeEmitFactory, initController } from './processing'
 import { HTML, ledStyle } from './rendering'
@@ -29,19 +30,29 @@ const nodeInit: NodeInitializer = (RED): void => {
       // TODO: support theme and dark
       const ui: NodeRedUI = NodeREDDashboard(RED)
 
-      const group = RED.nodes.getNode(config.group) as any
+      const groupNode = RED.nodes.getNode(config.group) as GroupNodeInstance
+
+      const width = config.width || (config.group && groupNode.config.width) || undefined
+      const height = config.height || 1
+
+      const format = HTML(config, ledStyle('gray', false))
 
       const done = ui.addWidget({
         node: this,
-        width:
-          config.width || (config.group && group.config.width) || undefined,
-        height: config.height || 1,
-        format: HTML(config, ledStyle('gray', false)),
-        group: config.group,
+        width,
+        height,
+
+        format,
+        
         templateScope: 'local',
         order: config.order,
+
+        group: config.group,
+        
         emitOnlyNewValues: false,
+
         beforeEmit: beforeEmitFactory(this, RED),
+        
         initController
       })
 

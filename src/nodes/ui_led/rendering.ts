@@ -5,7 +5,7 @@ import { LEDNodeDef } from './types'
  * @param {object} config - The node's config instance
  * @param {object} ledStyle - Style attribute of our LED span in in-line CSS format
  */
-export const HTML = (config: LEDNodeDef, ledStyle: string) => {
+export const HTML = (config: LEDNodeDef, ledStyle: string): string => {
   // text-align: ` + config.labelAlignment + `
   const name = () => {
     if (typeof config.label === 'string' && config.label !== '') {
@@ -62,7 +62,7 @@ export const HTML = (config: LEDNodeDef, ledStyle: string) => {
   )
 }
 
-export const ledStyle = (color: string, glow: boolean) => {
+export const ledStyle = (color: string, glow: boolean): string => {
   if (glow) {
     return (
       `background-color: ` +

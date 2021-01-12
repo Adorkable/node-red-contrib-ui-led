@@ -1,34 +1,40 @@
-import nodeRed, { NodeAPI, NodeMessage } from 'node-red'
+import nodeRed, { NodeAPI } from 'node-red'
+import { BeforeEmitMessage, Emit, InitController, Payload, UiEvents, UITemplateScope } from '../../types/node-red-dashboard'
+import { ObserveCallback, WebKitMutationObserver } from './miscellanious'
 
 import { ColorForValueArray } from './shared/types'
 import {
   ColorForValueMap,
   ControllerMessage,
-  EmitMessage,
+  LEDBeforeEmitMessage,
   LEDNode
 } from './types'
 
 const getColorForValue = (
   colorForValue: ColorForValueArray | ColorForValueMap,
-  value: any,
+  value: Payload,
   RED: NodeAPI<nodeRed.NodeAPISettingsWithData>
 ): [string, boolean] => {
   let color: string | undefined,
     found = false
 
-  if (Array.isArray(colorForValue)) {
-    for (let index = 0; index < colorForValue.length; index++) {
-      const compareWith = colorForValue[index]
-
-      if (RED.util.compareObjects(compareWith.value, value)) {
-        color = compareWith.color
-        found = true
-        break
+  try {
+    if (Array.isArray(colorForValue)) {
+      for (let index = 0; index < colorForValue.length; index++) {
+        const compareWith = colorForValue[index]
+        
+        if (RED.util.compareObjects(compareWith.value, value)) {
+          color = compareWith.color
+          found = true
+          break
+        }
       }
+    } else if (typeof colorForValue === 'object') {
+      color = colorForValue[value]
+      found = color !== undefined && color !== null
     }
-  } else if (typeof colorForValue === 'object') {
-    color = colorForValue[value]
-    found = color !== undefined && color !== null
+  } catch (error) {
+    console.log("Error trying to find color for value '" + value + "'", error)
   }
   if (found === false || color === undefined) {
     color = 'gray'
@@ -41,15 +47,16 @@ export const beforeEmitFactory = (
   RED: NodeAPI<nodeRed.NodeAPISettingsWithData>
 ) => {
   return (
-    msg: NodeMessage & Record<string, any>,
-    value: any
-  ): { msg: ControllerMessage } => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    msg: BeforeEmitMessage,
+    value: Payload
+  ): Emit => {
     if (
       node.allowColorForValueInMessage === true &&
       typeof msg.colorForValue !== 'undefined'
     ) {
-      const updatedMessage = msg as EmitMessage
-      const msgColorForValue = updatedMessage.colorForValue
+      const ledMsg = msg as LEDBeforeEmitMessage
+      const msgColorForValue = ledMsg.colorForValue
       if (msgColorForValue !== undefined) {
         node.overrideColorForValue = msgColorForValue
       }
@@ -60,6 +67,7 @@ export const beforeEmitFactory = (
 
     return {
       msg: {
+        ...msg,
         color,
         glow
       }
@@ -67,19 +75,17 @@ export const beforeEmitFactory = (
   }
 }
 
-declare let WebKitMutationObserver: any
-
 // TODO: why is initController stringed and evaled??? we have to move erryone into this file :/
-// TODO: track down $scope definition
-export const initController = ($scope: any) => {
+export const initController: InitController = ($scope: UITemplateScope, _events: UiEvents): void => {
   $scope.flag = true
 
-  const observeDOMFactory = () => {
+  // TODO: From miscellanious.ts, we need to resolve this issue
+  const observeDOMFactory = (): ((observe: Document, callback: ObserveCallback) => void) => {
     const MutationObserver = window.MutationObserver || WebKitMutationObserver
 
     return (
-      observe: any,
-      callback: (event: Event | MutationRecord[]) => void
+      observe: Document,
+      callback: ObserveCallback
     ) => {
       if (!observe || !(observe.nodeType === 1)) {
         return

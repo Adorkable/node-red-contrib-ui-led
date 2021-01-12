@@ -1,3 +1,5 @@
+import { Payload } from "../../../types/node-red-dashboard"
+
 export interface LEDNodeOptions {
   label: string
   labelAlignment?: string | void
@@ -36,7 +38,7 @@ export const SupportedValueTypes: ValueType[] = [
 
 export type ColorForValue = {
   color: string
-  value: any
+  value: Payload
   valueType: ValueType
 }
 

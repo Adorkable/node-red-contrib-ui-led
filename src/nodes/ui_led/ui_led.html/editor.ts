@@ -1,4 +1,5 @@
 import { EditorNodeInstance } from 'node-red'
+import { Payload } from '../../../types/node-red-dashboard'
 import { SupportedValueTypes } from '../shared/types'
 
 export const colorForValueEditContainerId =
@@ -13,7 +14,7 @@ export const inputErrorClass = 'input-error'
 
 export const fieldKeyUpValidateNotEmpty = function (
   this: EditorNodeInstance | HTMLElement
-) {
+): void {
   const value = $(this).val()
 
   if (value && $(this).hasClass(inputErrorClass)) {
@@ -25,7 +26,7 @@ export const fieldKeyUpValidateNotEmpty = function (
   }
 }
 
-export const generateValueFormRow = (index: number, value: any) => {
+export const generateValueFormRow = (index: number, value: Payload): void => {
   const requiredFieldClasses: string[] = []
 
   const containerId = 'ValueFormRow-' + index

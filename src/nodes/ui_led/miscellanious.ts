@@ -1,12 +1,14 @@
-declare let WebKitMutationObserver: any
+export declare const WebKitMutationObserver: MutationObserver
+
+export type ObserveCallback = (event: Event | MutationRecord[]) => void
 
 // Based on: https://stackoverflow.com/a/14570614
-export const observeDOMFactory = () => {
+export const observeDOMFactory = (): ((observe: Document, callback: ObserveCallback) => void) => {
   const MutationObserver = window.MutationObserver || WebKitMutationObserver
 
   return (
-    observe: any,
-    callback: (event: Event | MutationRecord[]) => void
+    observe: Document,
+    callback: ObserveCallback
   ) => {
     if (!observe || !(observe.nodeType === 1)) {
       return

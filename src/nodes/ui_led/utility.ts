@@ -13,7 +13,7 @@ export const checkConfig = (
   config: LEDNodeDef,
   node: LEDNode,
   RED: NodeAPI<nodeRed.NodeAPISettingsWithData>
-) => {
+): boolean => {
   if (!config) {
     // TODO: have to think further if it makes sense to separate these out, it isn't clear what the user can do if they encounter this besides use the explicit error to more clearly debug the code
     node.error(RED._('ui_led.error.no-config'))
@@ -27,7 +27,7 @@ export const checkConfig = (
 }
 
 export const nodeToStringFactory = (config: LEDNodeDef) => {
-  return () => {
+  return (): string => {
     let result = 'LED'
     if (config.name) {
       result += ' name: ' + config.label

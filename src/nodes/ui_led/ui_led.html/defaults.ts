@@ -1,6 +1,8 @@
+import { NodePropertiesDef } from '@node-red/editor-client'
 import { EditorRED } from 'node-red'
+import { GroupNodeDef } from '../../../types/node-red-dashboard'
 import { ColorForValueArray } from '../shared/types'
-import { LEDEditorNodeInstance } from './types'
+import { LEDEditorNodeInstance, LEDEditorNodeProperties } from './types'
 
 export const colorForValueDefault: ColorForValueArray = [
   {
@@ -19,7 +21,7 @@ const validateWidthFactory = (RED: EditorRED) => {
   return function (this: LEDEditorNodeInstance, newValue: string): boolean {
     const width = parseInt(newValue, 10) || 0
     const currentGroup = $('#node-input-group').val()?.toString() || '' //|| this.group
-    const groupNode: any = RED.nodes.node(currentGroup)
+    const groupNode = RED.nodes.node(currentGroup) as GroupNodeDef
     const fitsInGroup = !groupNode || +width <= +groupNode.width
     const fitsWithLabel = !this.label || width > 1 || width == 0
     const valid = fitsInGroup && fitsWithLabel
@@ -51,15 +53,17 @@ const validateLabel = function (
 const validateColorForValueFactory = (RED: EditorRED) => {
   return function (
     this: LEDEditorNodeInstance,
-    newValueString: string
+    newValue: string | ColorForValueArray
   ): boolean {
-    if (!newValueString) {
-      return false
+    let useNewValue: ColorForValueArray
+    if (typeof newValue === 'string') {
+      useNewValue = JSON.parse(newValue)
+    } else {
+      useNewValue = newValue
     }
-    const newValue: ColorForValueArray = JSON.parse(newValueString)
     // TODO: check for duplicate values
-    for (let index = 0; index < newValue.length; index++) {
-      const colorForValue = newValue[index]
+    for (let index = 0; index < useNewValue.length; index++) {
+      const colorForValue = useNewValue[index]
       if (!colorForValue.color || colorForValue.color.length === 0) {
         return false
       }
@@ -80,7 +84,7 @@ const validateColorForValueFactory = (RED: EditorRED) => {
   }
 }
 
-export const defaultsFactory = (RED: EditorRED) => {
+export const defaultsFactory = (RED: EditorRED): NodePropertiesDef<LEDEditorNodeProperties> => {
   return {
     order: { value: 0 },
     group: { value: 'ui_group', type: 'ui_group', required: true },
