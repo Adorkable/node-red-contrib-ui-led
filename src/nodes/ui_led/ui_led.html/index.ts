@@ -98,7 +98,7 @@ RED.nodes.registerType('ui_led', {
   align: 'right',
   label: label,
   labelStyle: labelStyle,
-  icon: 'icon.png',
+  icon: 'ui_led.png',
 
   oneditprepare,
   oneditsave
