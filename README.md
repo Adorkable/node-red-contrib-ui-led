@@ -1,4 +1,5 @@
-## Node-RED UI LED
+# Node-RED UI LED
+
 A simple LED status indicator for the Node-RED Dashboard
 
 [![dependencies](https://img.shields.io/david/adorkable/node-red-contrib-ui-led.svg?style=flat-square)](https://github.com/Adorkable/node-red-contrib-ui-led/network/dependencies)
@@ -11,12 +12,14 @@ A simple LED status indicator for the Node-RED Dashboard
 
 The node uses `msg.payload`'s value to determine status. By default:
 
-* `msg.payload` === `true` - **Green**
-* `msg.payload` === `false` - **Red**
-* no `msg` received yet or `msg.payload` !== `true` and `msg.payload` !== `false` - **Gray**
+- `msg.payload` === `true` - **Green**
+- `msg.payload` === `false` - **Red**
+- no `msg` received yet or `msg.payload` !== `true` and `msg.payload` !== `false` - **Gray**
 
 ## Install
+
 To install the node run the following from your Node-RED user directory (`~/.node-red`):
+
 ```bash
 npm install node-red-contrib-ui-led
 ```
@@ -31,7 +34,7 @@ To customize the mappings open the node's configuration panel and scroll to the 
 
 ![Colors for Values Image](images/colorsForValues.png)
 
-To add a value mapping press the **+Color** button at the bottom of the list. 
+To add a value mapping press the **+Color** button at the bottom of the list.
 
 Next fill in a color in a [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) format (color name, hex, rgb, rgba...), select the value type (`string`, `boolean`...) and fill in an appropriate value.
 
@@ -41,16 +44,16 @@ Finally to delete a mapping simply press the X button on the far right!
 
 ## Custom Statuses in `msg`
 
-By enabling _Allow Color For Value map in msg_ in a node that node will use dictionaries passed via `msg.colorForValue` to override any previous color to value mappings. 
+By enabling _Allow Color For Value map in msg_ in a node that node will use dictionaries passed via `msg.colorForValue` to override any previous color to value mappings.
 
 The format should be `value` => `color`, ie an object whose key values return color values.
 
 Example:
 
 ```js
-msg.colorForValue = {};
-msg.colorForValue[true] = "purple";
-msg.colorForValue[false] = "orange";
+msg.colorForValue = {}
+msg.colorForValue[true] = 'purple'
+msg.colorForValue[false] = 'orange'
 ```
 
 ## Further Examples
@@ -58,4 +61,9 @@ msg.colorForValue[false] = "orange";
 To see usages already set up check out the examples included with the project by using _Import_ in your Node-RED editor!
 
 ## License
+
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FAdorkable%2Fnode-red-contrib-ui-led.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FAdorkable%2Fnode-red-contrib-ui-led?ref=badge_large)
+
+## Thanks to
+
+- [@alexk111](https://github.com/alexk111) for his great [Node-RED Typescript Starter](https://github.com/alexk111/node-red-node-typescript-starter) which made it a breeze to convert the project over to Typescript
