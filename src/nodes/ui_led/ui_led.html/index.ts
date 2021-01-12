@@ -13,9 +13,17 @@ import { label, labelStyle } from './rendering'
 import { LEDEditorNodeInstance } from './types'
 
 declare const RED: EditorRED
+declare interface JQuery<TElement extends HTMLElement> {
+  elementSizer(options: {
+    width: string,
+    height: string,
+    group: string,
+    element?: TElement
+  }): void
+}
 
 const oneditprepare = function (this: LEDEditorNodeInstance) {
-  $('#node-input-size').elementSizer({
+  ($('#node-input-size') as unknown as JQuery<HTMLElement>).elementSizer({
     width: '#node-input-width',
     height: '#node-input-height',
     group: '#node-input-group'
@@ -90,7 +98,7 @@ RED.nodes.registerType('ui_led', {
   align: 'right',
   label: label,
   labelStyle: labelStyle,
-  icon: './icon.png',
+  icon: 'icon.png',
 
   oneditprepare,
   oneditsave
