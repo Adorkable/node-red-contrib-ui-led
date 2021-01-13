@@ -23,6 +23,10 @@ export const checkConfig = (
     node.error(RED._('ui_led.error.no-group'))
     return false
   }
+  if (RED.nodes.getNode(config.group) === undefined) {
+    node.error(RED._('ui_led.error.invalid-group'))
+    return false
+  }
   return true
 }
 
