@@ -19,16 +19,22 @@ export const colorForValueDefault: ColorForValueArray = [
 
 const WidthAutosize = 0
 
-function getSelectedGroupNodeDef(node: LEDEditorNodeInstance, RED: EditorRED): GroupNodeDef | undefined {
+function getSelectedGroupNodeDef(
+  node: LEDEditorNodeInstance,
+  RED: EditorRED
+): GroupNodeDef | undefined {
   const group = $('#node-input-group').val()?.toString() || node.group
   if (!group) {
     return undefined
   }
 
-  return RED.nodes.node(group) as (GroupNodeDef | undefined)
+  return RED.nodes.node(group) as GroupNodeDef | undefined
 }
 
-const willFitInGroup = (width: number, groupNode: GroupNodeDef | undefined): boolean => {
+const willFitInGroup = (
+  width: number,
+  groupNode: GroupNodeDef | undefined
+): boolean => {
   if (width === WidthAutosize) {
     return true
   }
@@ -44,13 +50,17 @@ const willFitInGroup = (width: number, groupNode: GroupNodeDef | undefined): boo
   return true
 }
 
-const willFitWithLabel = (width: number, label: string, groupNode: GroupNodeDef | undefined): boolean => {
+const willFitWithLabel = (
+  width: number,
+  label: string,
+  groupNode: GroupNodeDef | undefined
+): boolean => {
   if (label.length === 0) {
     return true
   }
 
   if (groupNode && groupNode.width === 1) {
-      return false
+    return false
   }
 
   if (width === 1) {
@@ -61,7 +71,10 @@ const willFitWithLabel = (width: number, label: string, groupNode: GroupNodeDef 
 }
 
 const validateWidthFactory = (RED: EditorRED) => {
-  return function (this: LEDEditorNodeInstance, newValue: string | number): boolean {
+  return function (
+    this: LEDEditorNodeInstance,
+    newValue: string | number
+  ): boolean {
     let newWidthValue: number
     if (typeof newValue === 'number') {
       newWidthValue = newValue
@@ -73,9 +86,9 @@ const validateWidthFactory = (RED: EditorRED) => {
 
     const groupNode = getSelectedGroupNodeDef(this, RED)
 
-    const fitsInGroup = willFitInGroup(newWidthValue, groupNode,)
+    const fitsInGroup = willFitInGroup(newWidthValue, groupNode)
     const fitsWithLabel = willFitWithLabel(newWidthValue, this.label, groupNode)
-    
+
     $('#node-input-size').toggleClass('input-error', !fitsInGroup)
     $('#node-input-label').toggleClass('input-error', !fitsWithLabel)
     return fitsInGroup
@@ -83,16 +96,17 @@ const validateWidthFactory = (RED: EditorRED) => {
 }
 
 const validateLabelFactory = (RED: EditorRED) => {
-  return function (
-    this: LEDEditorNodeInstance,
-    newValue: string
-  ): boolean {
+  return function (this: LEDEditorNodeInstance, newValue: string): boolean {
     if (newValue.length === 0) {
-      return true;
+      return true
     }
 
     const groupNode = getSelectedGroupNodeDef(this, RED)
-    const fitsWithLabel = willFitWithLabel(this.width || WidthAutosize, newValue, groupNode)
+    const fitsWithLabel = willFitWithLabel(
+      this.width || WidthAutosize,
+      newValue,
+      groupNode
+    )
 
     $('#node-input-label').toggleClass('input-error', !fitsWithLabel)
     return fitsWithLabel
@@ -158,6 +172,8 @@ export const defaultsFactory = (
       validate: validateColorForValueFactory(RED)
     },
     allowColorForValueInMessage: { value: false },
+
+    showGlow: { value: true },
 
     name: { value: '' }
   }
