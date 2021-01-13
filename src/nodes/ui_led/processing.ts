@@ -76,7 +76,8 @@ export const beforeEmitFactory = (
       msg: {
         ...msg,
         color,
-        glow: node.showGlow ? glow : false
+        glow: node.showGlow ? glow : false,
+        sizeMultiplier: node.height
       }
     }
   }
@@ -122,11 +123,21 @@ export const initController: InitController = (
     }
   }
 
-  const ledStyle = (color: string, glow: boolean): string => {
+  const ledStyle = (
+    color: string,
+    glow: boolean,
+    sizeMultiplier: number
+  ): string => {
     if (glow) {
       return `
       background-color: ${color};
-      box-shadow: inset #ffffff8c 0px 1px 2px, inset #00000033 0 -1px 1px 1px, inset ${color} 0 -1px 4px, ${color} 0 0px 12px, ${color} 0 0px 12px;`
+      box-shadow: inset #ffffff55 0px 1px ${
+        2 * sizeMultiplier
+      }px, inset #ffffff11 0 0px 1px ${
+        1 * sizeMultiplier
+      }px, inset ${color} 0 -1px ${2 * sizeMultiplier}px, ${color} 0 0px ${
+        7 * sizeMultiplier
+      }px, ${color} 0 0px ${7 * sizeMultiplier}px;`
     } else {
       // TODO: duplicate code because of execution scope, fix this shit :|
       return `
@@ -146,8 +157,9 @@ export const initController: InitController = (
 
     const color = msg.color
     const glow = msg.glow
+    const sizeMultiplier = msg.sizeMultiplier
 
-    $(element).attr('style', ledStyle(color, glow))
+    $(element).attr('style', ledStyle(color, glow, sizeMultiplier))
   }
 
   const retrieveElementFromDocument = (id: string, document: Document) => {
