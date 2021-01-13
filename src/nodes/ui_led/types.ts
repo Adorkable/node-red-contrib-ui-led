@@ -14,6 +14,8 @@ export interface LEDNode extends Node<LEDNodeCredentials> {
 
   allowColorForValueInMessage: boolean
   overrideColorForValue: ColorForValueArray | ColorForValueMap
+
+  showGlow: boolean
 }
 
 export interface LEDBeforeEmitMessage extends BeforeEmitMessage {

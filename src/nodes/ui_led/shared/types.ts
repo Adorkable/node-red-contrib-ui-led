@@ -15,6 +15,8 @@ export interface LEDNodeOptions {
   colorForValue: ColorForValueArray
 
   allowColorForValueInMessage: boolean
+
+  showGlow: boolean
 }
 
 // Copied from node-red :P
