@@ -24,7 +24,6 @@
     "url": "git+https://github.com/Adorkable/node-red-contrib-ui-led.git"
   },
   "scripts": {
-    "add-node": "node ./utils/add-node.js",
     "copy": "copyfiles -u 2 \"./src/nodes/**/*.{png,svg}\" \"./dist/nodes/\"",
     "build:editor": "rollup -c rollup.config.editor.js",
     "build:editor:watch": "rollup -c rollup.config.editor.js -w",
@@ -71,6 +70,10 @@
     "rollup": "^2.23.0",
     "ts-jest": "^26.4.4",
     "typescript": "^4.1.2"
+  },
+  "peerDependencies": {
+    "node-red": "^1.2.6",
+    "node-red-dashboard": "^2.23.3"
   },
   "jest": {
     "testEnvironment": "node",
