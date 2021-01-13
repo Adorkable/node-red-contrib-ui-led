@@ -1,5 +1,9 @@
 import { LEDNodeDef } from './types'
 
+export const composeLEDElementIdTemplate = (): string => {
+  return String.raw`led_{{$id}}`
+}
+
 /**
  * Generate our dashboard HTML code
  * @param {object} config - The node's config instance
@@ -20,69 +24,64 @@ export const HTML = (config: LEDNodeDef, ledStyle: string): string => {
     return ''
   }
 
-  return (
-    String.raw`
-        	<style>
-				div.led_{{$id}} {
-				    display: flex;
-				    flex-direction: row;
+  const controlClassTemplate = String.raw`led_{{$id}}`
 
-				    justify-content: space-between;
-			        align-items: center;
+  const controlStyle = String.raw`
+    div.${controlClassTemplate} {
+      display: flex;
+      flex-direction: row;
 
-			        height: 100%;
-				}
-				div.led_{{$id}} > span.led {
-				    width: 24px;
-				    height: 24px;
-				    border-radius: 50%;
-				    margin: 6px;
-				}
-				div.led_{{$id}} > span.name {
-					flex-grow: 1;
-					text-align: ` +
-    config.labelAlignment +
-    `;
-				    margin-` +
-    config.labelPlacement +
-    `: 6px;
-				}
-			</style>
-			<div class="led_{{$id}}">
-				` +
-    optionalName(config.labelPlacement !== 'right') +
-    `
-				<span class="led" id="led_{{$id}}" style="` +
-    ledStyle +
-    `"></span>
-				` +
-    optionalName(config.labelPlacement === 'right') +
-    `
-			</div>`
-  )
+      justify-content: space-between;
+      align-items: center;
+
+      height: 100%;
+    }`
+
+  const ledElementStyle = String.raw`
+    div.${controlClassTemplate} > span.led {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      margin: 6px;
+    }`
+
+  const labelStyle = String.raw`
+    div.${controlClassTemplate} > span.name {
+		  flex-grow: 1;
+			text-align: ${config.labelAlignment};
+			margin-${config.labelPlacement}: 6px;
+		}`
+
+  const style = String.raw`<style>
+      ${controlStyle}
+      ${ledElementStyle}
+      ${labelStyle}
+    </style>`
+
+  const ledElement = String.raw`
+    <span 
+      class="led" 
+      id="${composeLEDElementIdTemplate()}" 
+      style="${ledStyle}"></span>`
+
+  const allElements = String.raw`
+    <div class="${controlClassTemplate}">
+      ${optionalName(config.labelPlacement !== 'right')}
+      ${ledElement}
+      ${optionalName(config.labelPlacement === 'right')}
+    </div>`
+  return style + allElements
 }
 
 export const ledStyle = (color: string, glow: boolean): string => {
   if (glow) {
-    return (
-      `background-color: ` +
-      color +
-      `; box-shadow: inset #ffffff8c 0px 1px 2px, inset #00000033 0 -1px 1px 1px, inset ` +
-      color +
-      ` 0 -1px 4px, ` +
-      color +
-      ` 0 0px 12px, ` +
-      color +
-      ` 0 0px 12px;`
-    )
+    return `
+      background-color: ${color};
+      box-shadow: inset #ffffff8c 0px 1px 2px, inset #00000033 0 -1px 1px 1px, inset ${color} 0 -1px 4px, ${color} 0 0px 12px, ${color} 0 0px 12px;`
   } else {
     // TODO: duplicate code because of execution scope, fix this shit :|
-    return (
-      `background-color: ` +
-      color +
-      `; box-shadow: inset #ffffff8c 0px 1px 2px, inset #00000033 0 -1px 1px 1px, inset ` +
-      color +
-      ` 0 -1px 4px;`
-    )
+    return `
+      background-color: ${color}; 
+      box-shadow: inset #ffffff8c 0px 1px 2px, inset #00000033 0 -1px 1px 1px, inset ${color} 0 -1px 4px;`
   }
 }

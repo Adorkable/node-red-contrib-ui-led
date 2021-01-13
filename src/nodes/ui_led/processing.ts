@@ -122,28 +122,16 @@ export const initController: InitController = (
     }
   }
 
-  const ledStyle = (color: string, glow: boolean) => {
+  const ledStyle = (color: string, glow: boolean): string => {
     if (glow) {
-      return (
-        `background-color: ` +
-        color +
-        `; box-shadow: inset #ffffff8c 0px 1px 2px, inset #00000033 0 -1px 1px 1px, inset ` +
-        color +
-        ` 0 -1px 4px, ` +
-        color +
-        ` 0 0px 12px, ` +
-        color +
-        ` 0 0px 12px;`
-      )
+      return `
+      background-color: ${color};
+      box-shadow: inset #ffffff8c 0px 1px 2px, inset #00000033 0 -1px 1px 1px, inset ${color} 0 -1px 4px, ${color} 0 0px 12px, ${color} 0 0px 12px;`
     } else {
       // TODO: duplicate code because of execution scope, fix this shit :|
-      return (
-        `background-color: ` +
-        color +
-        `; box-shadow: inset #ffffff8c 0px 1px 2px, inset #00000033 0 -1px 1px 1px, inset ` +
-        color +
-        ` 0 -1px 4px;`
-      )
+      return `
+      background-color: ${color}; 
+      box-shadow: inset #ffffff8c 0px 1px 2px, inset #00000033 0 -1px 1px 1px, inset ${color} 0 -1px 4px;`
     }
   }
 
@@ -163,6 +151,7 @@ export const initController: InitController = (
   }
 
   const retrieveElementFromDocument = (id: string, document: Document) => {
+    // TODO: share code to make sure we're always using the same id composure
     const elementId = 'led_' + id
     if (!document) {
       return undefined
