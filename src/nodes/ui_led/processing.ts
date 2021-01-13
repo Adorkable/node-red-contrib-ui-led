@@ -76,7 +76,7 @@ export const beforeEmitFactory = (
       msg: {
         ...msg,
         color,
-        glow
+        glow: node.showGlow ? glow : false
       }
     }
   }

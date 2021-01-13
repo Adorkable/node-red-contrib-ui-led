@@ -1,8 +1,5 @@
 import { NodeInitializer } from 'node-red'
-import {
-  GroupNodeInstance,
-  NodeRedUI,
-} from '../../types/node-red-dashboard'
+import { GroupNodeInstance, NodeRedUI } from '../../types/node-red-dashboard'
 
 import { beforeEmitFactory, initController } from './processing'
 import { HTML, ledStyle } from './rendering'
@@ -27,6 +24,7 @@ const nodeInit: NodeInitializer = (RED): void => {
 
       this.colorForValue = mapColorForValue(this, config.colorForValue, RED)
       this.allowColorForValueInMessage = config.allowColorForValueInMessage
+      this.showGlow = config.showGlow !== undefined ? config.showGlow : true
       this.toString = nodeToStringFactory(config)
 
       // TODO: support theme and dark
