@@ -10,17 +10,23 @@ export const ledStyle = (
   glow: boolean,
   sizeMultiplier: number
 ): string => {
-  if (true) {
+  if (glow) {
     return `
       background-color: ${color};
-      box-shadow: inset #ffffff55 0px 1px ${
-        2 * sizeMultiplier
-      }px, inset #ffffff11 0 0px 1px ${
-      1 * sizeMultiplier
-    }px, inset ${color} 0 -1px ${2 * sizeMultiplier}px, ${color} 0 0px ${
-      7 * sizeMultiplier
-    }px, ${color} 0 0px ${7 * sizeMultiplier}px;`
+      box-shadow:
+        inset #ffffff1f 0px 0px 1px 1px, 
+        #ffffff8e 0px 0px ${7 * sizeMultiplier}px 0px,
+        inset ${color} 0 -1px ${2 * sizeMultiplier}px, 
+        ${color} 0 0px ${7 * sizeMultiplier}px, 
+        ${color} 0 0px ${7 * sizeMultiplier}px;`
   } else {
+    // TODO: duplicate code because of execution scope, fix this shit :|
+    return `
+      background-color: ${color}; 
+      box-shadow:
+        inset #ffffff8c 0px 1px 2px,
+        inset #00000033 0 -1px 1px 1px,
+        inset ${color} 0 -1px 4px;`
   }
 }
 
