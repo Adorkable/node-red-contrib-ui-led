@@ -16,6 +16,8 @@ export interface LEDNode extends Node<LEDNodeCredentials> {
   overrideColorForValue: ColorForValueArray | ColorForValueMap
 
   showGlow: boolean
+
+  height: number
 }
 
 export interface LEDBeforeEmitMessage extends BeforeEmitMessage {
@@ -25,4 +27,5 @@ export interface LEDBeforeEmitMessage extends BeforeEmitMessage {
 export interface ControllerMessage extends NodeMessage {
   color: string
   glow: boolean
+  sizeMultiplier: number
 }
