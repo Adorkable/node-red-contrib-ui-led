@@ -39,8 +39,13 @@ const oneditprepare = function (this: LEDEditorNodeInstance) {
     )
   })
 
-  if (!this.colorForValue) {
+  if (typeof this.colorForValue === 'undefined') {
     this.colorForValue = colorForValueDefault
+  }
+
+  if (typeof this.showGlow === 'undefined') {
+    this.showGlow = true
+    $('#node-input-showGlow').prop('checked', true)
   }
 
   for (let index = 0; index < this.colorForValue.length; index++) {
