@@ -1,7 +1,11 @@
 import { EditorNodeInstance } from 'node-red'
 import { Payload } from '../../../types/node-red-dashboard'
 import { control } from '../shared/rendering'
-import { SupportedValueTypes } from '../shared/types'
+import {
+  LabelAlignment,
+  LabelPlacement,
+  SupportedValueTypes
+} from '../shared/types'
 import {
   colorFieldClass,
   colorForValueEditContainerId,
@@ -22,34 +26,41 @@ export const labelStyle = function (this: EditorNodeInstance): string {
   return this.name ? 'node_label_italic' : ''
 }
 
-export const preview = (
-  label: string,
-  labelPlacement: string,
-  labelAlignment: string,
-  color: string,
-  width: number,
-  height: number,
+export interface PreviewConfig {
+  color: string
+  width: number
+  maxWidth: number
+  height: number
   showGlow: boolean
-): string => {
+  label: string
+  labelPlacement: LabelPlacement
+  labelAlignment: LabelAlignment
+}
+
+export const preview = (config: PreviewConfig): string => {
   const previewsContainerStyle = String.raw`
     .${previewsContainerClass} {
       width: calc(100% - 6px * 2);
       justify-content: space-around;
-      height: ${48 * height}px; 
+      height: ${config.height !== 0 ? `${42 * config.height + 8}px` : '50px'}; 
       display: flex; 
       flex-direction: row;
       background-color: #f7f7f7;
       box-shadow: inset black 0px 0px 2px 0px;
       padding: 6px;
+      overflow-x: scroll; 
+      border: 1px solid #00000026;
     }
     .${previewContainerClass} {
       justify-content: center;
       height: 100%;
       display: flex; 
       flex-direction: row;
-      border-radius: 5px;
-      min-width: ${width * 140}px;
-      padding-left: 10px;
+      min-width: ${config.width === 0 ? `42px` : ''};
+      width: ${config.width !== 0 ? `${config.width * 42}px` : '100%'};
+      max-width: ${config.maxWidth !== 0 ? `${config.maxWidth * 42}px` : ''};
+      padding-left: 3px;
+      padding-right: 3px;
       background-color: white;
       border: 1px solid #d3d3d3;
       border-radius: 5px;
@@ -64,24 +75,24 @@ export const preview = (
         ${control(
           'preview-no_glow',
           '',
-          label,
-          labelPlacement,
-          labelAlignment,
+          config.label,
+          config.labelPlacement,
+          config.labelAlignment,
           'gray',
           false,
-          height
+          config.height !== 0 ? config.height : 1
         )}
       </div>
       <div class='${previewContainerClass}'>
         ${control(
           'preview-glow',
           '',
-          label,
-          labelPlacement,
-          labelAlignment,
-          color,
-          showGlow ? true : false,
-          height
+          config.label,
+          config.labelPlacement,
+          config.labelAlignment,
+          config.color,
+          config.showGlow ? true : false,
+          config.height !== 0 ? config.height : 1
         )}
       </div>
     </div>

@@ -172,3 +172,7 @@ export const getColorForValueFromContainer = (
     })
     .toArray()
 }
+
+export const getGroupId = (): string => {
+  return $('#' + groupId).val()
+}

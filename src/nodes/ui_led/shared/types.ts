@@ -1,9 +1,11 @@
 import { Payload } from '../../../types/node-red-dashboard'
 
+export type LabelPlacement = 'left' | 'right'
+export type LabelAlignment = 'left' | 'center' | 'right'
 export interface LEDNodeOptions {
   label: string
-  labelAlignment?: string | void
-  labelPlacement?: string | void
+  labelPlacement?: LabelPlacement | void
+  labelAlignment?: LabelAlignment | void
 
   width?: number | void
   height?: number | void

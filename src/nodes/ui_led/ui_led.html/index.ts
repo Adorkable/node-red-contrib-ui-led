@@ -7,6 +7,7 @@ import {
   heightId,
   rowHandleClass,
   showGlowId,
+  showPreviewId,
   sizeId,
   widthId
 } from './constants'
@@ -14,7 +15,8 @@ import {
   addColorForValue,
   fieldKeyUpValidateNotEmpty,
   setChecked,
-  setupPreviewUpdating
+  setupPreviewUpdating,
+  togglePreview
 } from './interaction'
 import { generateValueFormRow, label, labelStyle } from './rendering'
 import { LEDEditorNodeInstance } from './types'
@@ -57,7 +59,10 @@ const oneditprepare = function (this: LEDEditorNodeInstance) {
 
   setupColorForValue(this)
 
-  setupPreviewUpdating(this)
+  $('#' + showPreviewId).on('click', () => {
+    togglePreview()
+  })
+  setupPreviewUpdating(this, RED)
 }
 
 const oneditsave = function (this: LEDEditorNodeInstance) {

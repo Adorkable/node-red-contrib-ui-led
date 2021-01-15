@@ -1,4 +1,6 @@
-import { EditorNodeInstance } from 'node-red'
+import { EditorNodeInstance, EditorRED } from 'node-red'
+import { GroupNodeDef } from '../../../types/node-red-dashboard'
+import { LabelAlignment, LabelPlacement } from '../shared/types'
 import {
   colorFieldClass,
   colorForValueEditContainerId,
@@ -9,39 +11,47 @@ import {
   labelPlacementId,
   previewId,
   showGlowId,
+  showPreviewId,
+  showPreviewShowingClass,
   widthId
 } from './constants'
-import { generateValueFormRow, preview } from './rendering'
+import { getGroupId } from './processing'
+import { generateValueFormRow, preview, PreviewConfig } from './rendering'
 import { LEDEditorNodeInstance } from './types'
 
-export const updatePreview = (
-  label: string,
-  labelPlacement: string,
-  labelAlignment: string,
-  color: string,
-  width: number,
-  height: number,
-  showGlow: boolean
+export const togglePreview = (
+  showPreviewToggleId: string = showPreviewId,
+  previewContainerId: string = previewId
 ): void => {
-  $('#' + previewId).html(
-    preview(
-      label,
-      labelPlacement,
-      labelAlignment,
-      color,
-      width,
-      height,
-      showGlow
-    )
-  )
+  const showPreviewToggle = $('#' + showPreviewToggleId)
+  const preview = $('#' + previewContainerId)
+  if (showPreviewToggle.hasClass(showPreviewShowingClass)) {
+    showPreviewToggle.removeClass(showPreviewShowingClass)
+    preview.css('display', 'none')
+  } else {
+    showPreviewToggle.addClass(showPreviewShowingClass)
+    preview.css('display', '')
+  }
 }
 
-export const setupPreviewUpdating = (node: LEDEditorNodeInstance): void => {
-  const latestValues = {
+export const updatePreview = (config: PreviewConfig): void => {
+  $('#' + previewId).html(preview(config))
+}
+
+export const setupPreviewUpdating = (
+  node: LEDEditorNodeInstance,
+  RED: EditorRED
+): void => {
+  const latestGroup = RED.nodes.node(getGroupId()) as GroupNodeDef
+  console.log(latestGroup)
+
+  // TODO: update on group change in case group width is different
+  const latestConfig: PreviewConfig = {
     color:
       node.colorForValue.length > 0 ? node.colorForValue[0].color : 'green',
-    width: node.width || 1,
-    height: node.height || 1,
+    width: typeof node.width !== 'undefined' ? node.width : 0,
+    maxWidth: latestGroup !== undefined ? latestGroup.width : 0,
+    height: typeof node.height !== 'undefined' ? node.height : 0,
     showGlow: node.showGlow,
     label: node.label,
     labelPlacement: node.labelPlacement || 'left',
@@ -49,52 +59,40 @@ export const setupPreviewUpdating = (node: LEDEditorNodeInstance): void => {
   }
 
   const doUpdatePreview = () => {
-    updatePreview(
-      latestValues.label,
-      latestValues.labelPlacement,
-      latestValues.labelAlignment,
-      latestValues.color,
-      latestValues.width,
-      latestValues.height,
-      latestValues.showGlow
-    )
+    updatePreview(latestConfig)
   }
 
   doUpdatePreview()
 
   $('#' + widthId).on('change', (event) => {
-    latestValues.width =
-      (event.target as HTMLInputElement).value === '0'
-        ? 1
-        : parseInt((event.target as HTMLInputElement).value, 10)
+    latestConfig.width = parseInt((event.target as HTMLInputElement).value, 10)
     doUpdatePreview()
   })
   $('#' + heightId).on('change', (event) => {
-    latestValues.height =
-      (event.target as HTMLInputElement).value === '0'
-        ? 1
-        : parseInt((event.target as HTMLInputElement).value, 10)
+    latestConfig.height = parseInt((event.target as HTMLInputElement).value, 10)
     doUpdatePreview()
   })
   $('#' + labelId).on('change', (event) => {
-    latestValues.label = (event.target as HTMLInputElement).value
+    latestConfig.label = (event.target as HTMLInputElement).value
     doUpdatePreview()
   })
   $('#' + labelPlacementId).on('change', (event) => {
-    latestValues.labelPlacement = (event.target as HTMLInputElement).value
+    latestConfig.labelPlacement = (event.target as HTMLInputElement)
+      .value as LabelPlacement
     doUpdatePreview()
   })
   $('#' + labelAlignmentId).on('change', (event) => {
-    latestValues.labelAlignment = (event.target as HTMLInputElement).value
+    latestConfig.labelAlignment = (event.target as HTMLInputElement)
+      .value as LabelAlignment
     doUpdatePreview()
   })
   $('#' + showGlowId).on('change', (event) => {
-    latestValues.showGlow = (event.target as HTMLInputElement).checked
+    latestConfig.showGlow = (event.target as HTMLInputElement).checked
     doUpdatePreview()
   })
 
   const colorChanged = (color: string) => {
-    latestValues.color =
+    latestConfig.color =
       color !== undefined && color.length > 0 ? color : 'green'
     doUpdatePreview()
   }

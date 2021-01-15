@@ -9,9 +9,12 @@ export const groupId = 'node-input-group'
 
 export const showGlowId = 'node-input-showGlow'
 
+export const showPreviewId = 'showPreview'
+export const showPreviewShowingClass = 'showingPreview'
+
+export const previewId = 'ui_led-preview'
 export const previewsContainerClass = 'previewsContainer'
 export const previewContainerClass = 'previewContainer'
-export const previewId = 'ui_led-preview'
 
 export const colorForValueEditContainerId = 'node-input-colorForValue-container'
 export const contextPrefix = 'node-input-colorForValue'
