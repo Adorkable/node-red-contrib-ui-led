@@ -9,9 +9,8 @@ export const ledStyle = (
     return `
       background-color: ${color};
       box-shadow:
-        inset #ffffff1f 0px 0px 1px 1px, 
-        #ffffff8e 0px 0px ${glowSize * sizeMultiplier}px 0px,
-        inset ${color} 0 -1px ${2 * sizeMultiplier}px, 
+        black 0 0px ${2 / window.devicePixelRatio}px 0px,
+        ${color} 0 0px ${glowSize * sizeMultiplier}px, 
         ${color} 0 0px ${glowSize * sizeMultiplier}px, 
         ${color} 0 0px ${glowSize * sizeMultiplier}px;`
   } else {
