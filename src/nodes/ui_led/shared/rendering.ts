@@ -1,3 +1,5 @@
+const glowSize = 7
+
 export const ledStyle = (
   color: string,
   glow: boolean,
@@ -8,10 +10,10 @@ export const ledStyle = (
       background-color: ${color};
       box-shadow:
         inset #ffffff1f 0px 0px 1px 1px, 
-        #ffffff8e 0px 0px ${7 * sizeMultiplier}px 0px,
+        #ffffff8e 0px 0px ${glowSize * sizeMultiplier}px 0px,
         inset ${color} 0 -1px ${2 * sizeMultiplier}px, 
-        ${color} 0 0px ${7 * sizeMultiplier}px, 
-        ${color} 0 0px ${7 * sizeMultiplier}px;`
+        ${color} 0 0px ${glowSize * sizeMultiplier}px, 
+        ${color} 0 0px ${glowSize * sizeMultiplier}px;`
   } else {
     // TODO: duplicate code because of execution scope, fix this shit :|
     return `
@@ -32,7 +34,7 @@ export const ledElement = (
 ): string => {
   const showCurveReflection = false // TODO: Needs visual work and potentially make an option for poeple who like the old style better
 
-  const ledContainerPadding = `${10 * sizeMultiplier}px`
+  const ledContainerPadding = `${(glowSize + 4) * sizeMultiplier}px`
 
   // TODO: if show glow is turned off we should not include this padding for the glow?
   const ledContainerStyle = String.raw`
@@ -161,7 +163,8 @@ export const control = (
   const labelStyle = String.raw`
     div.${controlClass} > span.name {
       text-align: ${labelAlignment};
-      margin-${labelPlacement === 'right' ? 'left' : 'right'}: 6px;
+      margin-left: 6px;
+      margin-right: 6px;
       overflow-wrap: break-word;
       overflow: hidden;
       text-overflow: ellipsis;

@@ -162,3 +162,24 @@ export declare interface GroupNodeInstance extends Node {
 
 // TODO: fill in
 export declare type Theme = any
+
+export interface JQuery {
+  elementSizer(options: {
+    width: string
+    height: string
+    group: string
+    auto?: boolean | void
+  }): void
+
+  elementSizerByNum(options: {
+    label: string
+    has_height: boolean
+    pos: number
+    width: number
+    height: number
+    groupNode: {
+      width: number
+      height: number
+    }
+  }): void
+}
