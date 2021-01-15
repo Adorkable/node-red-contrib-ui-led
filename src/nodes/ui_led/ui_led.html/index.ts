@@ -179,19 +179,34 @@ const oneditprepare = function (this: LEDEditorNodeInstance) {
     latestValues.showGlow = (event.target as HTMLInputElement).checked
     doUpdatePreview()
   })
-  $('#node-input-colorForValue-container').on('DOMSubtreeModified', (event) => {
-    const list = event.target as HTMLOListElement
+
+  const colorChanged = (color: string) => {
+    latestValues.color =
+      color !== undefined && color.length > 0 ? color : 'green'
+    doUpdatePreview()
+  }
+  const colorInputChanged = (event: Event) => {
+    colorChanged((event.target as HTMLInputElement).value)
+  }
+  const listChanged = (list: HTMLOListElement) => {
     if (list.firstChild === null) {
-      latestValues.color = 'green'
-    } else {
-      latestValues.color = $(list.firstChild)
-        .find('.node-input-colorForValue-color')
-        .val()
-      if (latestValues.color.length === 0) {
-        latestValues.color = 'green'
+      colorChanged('green')
+      return
+    }
+    for (const child of $(list).children()) {
+      if (child === list.firstChild) {
+        const colorInput = $(child).find('.node-input-colorForValue-color')
+        colorChanged(colorInput.val())
+
+        $(child).on('change', colorInputChanged)
+      } else {
+        $(child).off('change', colorInputChanged)
       }
     }
-    doUpdatePreview()
+  }
+
+  $('#node-input-colorForValue-container').on('DOMSubtreeModified', (event) => {
+    listChanged(event.target as HTMLOListElement)
   })
 }
 
