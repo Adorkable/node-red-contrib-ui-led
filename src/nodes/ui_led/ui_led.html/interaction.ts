@@ -1,6 +1,6 @@
 import { EditorNodeInstance, EditorRED } from 'node-red'
 import { GroupNodeDef } from '../../../types/node-red-dashboard'
-import { LabelAlignment, LabelPlacement } from '../shared/types'
+import { LabelAlignment, LabelPlacement, Shape } from '../shared/types'
 import {
   colorFieldClass,
   colorForValueEditContainerId,
@@ -10,6 +10,7 @@ import {
   labelId,
   labelPlacementId,
   previewId,
+  shapeId,
   showGlowId,
   showPreviewId,
   showPreviewShowingClass,
@@ -43,7 +44,6 @@ export const setupPreviewUpdating = (
   RED: EditorRED
 ): void => {
   const latestGroup = RED.nodes.node(getGroupId()) as GroupNodeDef
-  console.log(latestGroup)
 
   // TODO: update on group change in case group width is different
   const latestConfig: PreviewConfig = {
@@ -52,6 +52,7 @@ export const setupPreviewUpdating = (
     width: typeof node.width !== 'undefined' ? node.width : 0,
     maxWidth: latestGroup !== undefined ? latestGroup.width : 0,
     height: typeof node.height !== 'undefined' ? node.height : 0,
+    shape: node.shape,
     showGlow: node.showGlow,
     label: node.label,
     labelPlacement: node.labelPlacement || 'left',
@@ -84,6 +85,10 @@ export const setupPreviewUpdating = (
   $('#' + labelAlignmentId).on('change', (event) => {
     latestConfig.labelAlignment = (event.target as HTMLInputElement)
       .value as LabelAlignment
+    doUpdatePreview()
+  })
+  $('#' + shapeId).on('change', (event) => {
+    latestConfig.shape = (event.target as HTMLInputElement).value as Shape
     doUpdatePreview()
   })
   $('#' + showGlowId).on('change', (event) => {

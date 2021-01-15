@@ -1,11 +1,14 @@
-export const labelId = 'node-input-label'
-export const labelPlacementId = 'node-input-labelPlacement'
-export const labelAlignmentId = 'node-input-labelAlignment'
+export const groupId = 'node-input-group'
 
 export const sizeId = 'node-input-size'
 export const widthId = 'node-input-width'
 export const heightId = 'node-input-height'
-export const groupId = 'node-input-group'
+
+export const labelId = 'node-input-label'
+export const labelPlacementId = 'node-input-labelPlacement'
+export const labelAlignmentId = 'node-input-labelAlignment'
+
+export const shapeId = 'node-input-shape'
 
 export const showGlowId = 'node-input-showGlow'
 

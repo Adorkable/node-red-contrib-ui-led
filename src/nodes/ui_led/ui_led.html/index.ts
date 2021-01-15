@@ -52,6 +52,11 @@ const oneditprepare = function (this: LEDEditorNodeInstance) {
     this.colorForValue = colorForValueDefault
   }
 
+  if (typeof this.shape === 'undefined') {
+    this.shape = 'circle'
+    // TODO: set control
+  }
+
   if (typeof this.showGlow === 'undefined') {
     this.showGlow = true
     setChecked('#' + showGlowId, this.showGlow)

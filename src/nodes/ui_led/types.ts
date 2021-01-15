@@ -1,6 +1,6 @@
 import { Node, NodeDef, NodeMessage } from 'node-red'
 import { BeforeEmitMessage, Payload } from '../../types/node-red-dashboard'
-import { ColorForValueArray, LEDNodeOptions } from './shared/types'
+import { ColorForValueArray, LEDNodeOptions, Shape } from './shared/types'
 
 export interface LEDNodeDef extends NodeDef, LEDNodeOptions {}
 
@@ -14,6 +14,8 @@ export interface LEDNode extends Node<LEDNodeCredentials> {
 
   allowColorForValueInMessage: boolean
   overrideColorForValue: ColorForValueArray | ColorForValueMap
+
+  shape: Shape
 
   showGlow: boolean
 
