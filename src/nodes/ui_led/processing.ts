@@ -123,6 +123,8 @@ export const initController: InitController = (
     }
   }
 
+  const glowSize = 7
+
   const ledStyle = (
     color: string,
     glow: boolean,
@@ -132,11 +134,10 @@ export const initController: InitController = (
       return `
       background-color: ${color};
       box-shadow:
-        inset #ffffff1f 0px 0px 1px 1px, 
-        #ffffff8e 0px 0px ${7 * sizeMultiplier}px 0px,
-        inset ${color} 0 -1px ${2 * sizeMultiplier}px, 
-        ${color} 0 0px ${7 * sizeMultiplier}px, 
-        ${color} 0 0px ${7 * sizeMultiplier}px;`
+        black 0 0px ${2 / window.devicePixelRatio}px 0px,
+        ${color} 0 0px ${glowSize * sizeMultiplier}px, 
+        ${color} 0 0px ${glowSize * sizeMultiplier}px, 
+        ${color} 0 0px ${glowSize * sizeMultiplier}px;`
     } else {
       // TODO: duplicate code because of execution scope, fix this shit :|
       return `
