@@ -26,6 +26,7 @@ export const HTML = (
     config.label,
     config.labelPlacement || 'left',
     config.labelAlignment || 'left',
+    config.shape || 'circle',
     color,
     glow,
     sizeMultiplier

@@ -47,6 +47,8 @@ export const defaultsFactory = (
     },
     allowColorForValueInMessage: { value: false },
 
+    shape: { value: 'circle' },
+
     showGlow: { value: true },
 
     name: { value: '' }

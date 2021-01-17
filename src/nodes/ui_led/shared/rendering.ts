@@ -1,3 +1,5 @@
+import { Shape } from './types'
+
 const glowSize = 7
 
 export const ledStyle = (
@@ -27,6 +29,7 @@ export const ledStyle = (
 export const ledElement = (
   controlClass: string,
   ledId: string,
+  shape: Shape,
   color: string,
   glow: boolean,
   sizeMultiplier: number
@@ -73,7 +76,7 @@ export const ledElement = (
       right: 0;
       bottom: 0;
       width:100%;
-      border-radius: 50%;
+      ${shape === 'circle' ? `border-radius: 50%;` : ''}
     }`
 
   const ledCurveShineReflectionStyle = String.raw`
@@ -121,6 +124,7 @@ export const control = (
   label: string,
   labelPlacement: string,
   labelAlignment: string,
+  shape: Shape,
   color: string,
   glow: boolean,
   sizeMultiplier: number
@@ -178,7 +182,7 @@ export const control = (
   const allElements = String.raw`
     <div class="${controlClass} control">
       ${optionalName(labelPlacement !== 'right')}
-      ${ledElement(controlClass, ledId, color, glow, sizeMultiplier)}
+      ${ledElement(controlClass, ledId, shape, color, glow, sizeMultiplier)}
       ${optionalName(labelPlacement === 'right')}
     </div>`
   return style + allElements

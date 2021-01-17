@@ -4,6 +4,7 @@ import { control } from '../shared/rendering'
 import {
   LabelAlignment,
   LabelPlacement,
+  Shape,
   SupportedValueTypes
 } from '../shared/types'
 import {
@@ -31,6 +32,7 @@ export interface PreviewConfig {
   width: number
   maxWidth: number
   height: number
+  shape: Shape
   showGlow: boolean
   label: string
   labelPlacement: LabelPlacement
@@ -78,6 +80,7 @@ export const preview = (config: PreviewConfig): string => {
           config.label,
           config.labelPlacement,
           config.labelAlignment,
+          config.shape,
           'gray',
           false,
           config.height !== 0 ? config.height : 1
@@ -90,6 +93,7 @@ export const preview = (config: PreviewConfig): string => {
           config.label,
           config.labelPlacement,
           config.labelAlignment,
+          config.shape,
           config.color,
           config.showGlow ? true : false,
           config.height !== 0 ? config.height : 1

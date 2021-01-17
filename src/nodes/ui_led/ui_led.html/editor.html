@@ -43,6 +43,16 @@
   </div>
 
   <div class="form-row" style="display: flex; flex-direction: row; width: 100%;">
+    <div style="flex-grow: 1; display: flex; flex-direction: row; align-items: center; justify-content: space-evenly;">
+      <label for="node-input-shape"><i class="icon-tag"></i> Shape</label>
+      <select id="node-input-shape" style="width: unset;">
+          <option value="circle">circle</option>
+          <option value="square">square</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row" style="display: flex; flex-direction: row; width: 100%;">
     <div style="flex-grow: 1; display: flex; flex-direction: row;">
       <label for="node-input-showGlow" style="flex-grow: 1; margin-bottom: unset;">Show glow effect around LED</label>
       <input type="checkbox" id="node-input-showGlow" style="width: unset;">

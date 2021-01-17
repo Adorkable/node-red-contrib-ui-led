@@ -6,6 +6,7 @@ import {
   groupId,
   heightId,
   rowHandleClass,
+  shapeId,
   showGlowId,
   showPreviewId,
   sizeId,
@@ -50,6 +51,11 @@ const oneditprepare = function (this: LEDEditorNodeInstance) {
 
   if (typeof this.colorForValue === 'undefined') {
     this.colorForValue = colorForValueDefault
+  }
+
+  if (typeof this.shape === 'undefined') {
+    this.shape = 'circle'
+    $('#' + shapeId).val('circle')
   }
 
   if (typeof this.showGlow === 'undefined') {
