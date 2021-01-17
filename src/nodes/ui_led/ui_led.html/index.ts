@@ -6,6 +6,7 @@ import {
   groupId,
   heightId,
   rowHandleClass,
+  shapeId,
   showGlowId,
   showPreviewId,
   sizeId,
@@ -54,7 +55,7 @@ const oneditprepare = function (this: LEDEditorNodeInstance) {
 
   if (typeof this.shape === 'undefined') {
     this.shape = 'circle'
-    // TODO: set control
+    $('#' + shapeId).val('circle')
   }
 
   if (typeof this.showGlow === 'undefined') {
