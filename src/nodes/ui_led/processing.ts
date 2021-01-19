@@ -91,15 +91,26 @@ export const initController: InitController = (
   $scope.flag = true
 
   // TODO: From miscellanious.ts, we need to resolve this issue
+  // Based on: https://stackoverflow.com/a/14570614
   const observeDOMFactory = (): ((
-    observe: Document,
+    observe: Node,
     callback: ObserveCallback
   ) => void) => {
     const MutationObserver = window.MutationObserver || WebKitMutationObserver
 
-    return (observe: Document, callback: ObserveCallback) => {
-      if (!observe || !(observe.nodeType === 1)) {
-        return
+    return (observe: Node, callback: ObserveCallback) => {
+      if (!observe) {
+        throw new Error('Element to observe not provided')
+      }
+
+      if (
+        observe.nodeType !== 1 &&
+        observe.nodeType !== 9 &&
+        observe.nodeType !== 11
+      ) {
+        throw new Error(
+          'Unexpected Node type (' + observe.nodeType + ') provided: ' + observe
+        )
       }
 
       if (MutationObserver) {
