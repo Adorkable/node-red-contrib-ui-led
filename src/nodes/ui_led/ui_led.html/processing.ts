@@ -135,7 +135,7 @@ export const validateColorForValueFactory = (RED: EditorRED) => {
         return false
       }
       if (!RED.validators.typedInput(colorForValue.valueType)) {
-        console.log('Typed', colorForValue.valueType)
+        // console.log('Typed', colorForValue.valueType)
         return false
       }
     }

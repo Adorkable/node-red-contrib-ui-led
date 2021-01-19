@@ -40,8 +40,9 @@ const getColorForValue = (
       color = colorForValue[value]
       found = color !== undefined && color !== null
     }
-  } catch (error) {
-    console.log("Error trying to find color for value '" + value + "'", error)
+  } catch (_error) {
+    // TODO: Not an error to receive an unaccounted for value, but we should log to Node-RED debug log
+    // console.log("Error trying to find color for value '" + value + "'", error)
   }
   if (found === false || color === undefined) {
     color = 'gray'
