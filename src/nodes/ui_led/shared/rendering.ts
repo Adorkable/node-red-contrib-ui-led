@@ -11,15 +11,16 @@ export const ledStyle = (
     return `
       background-color: ${color};
       box-shadow:
-        black 0 0px ${2 / window.devicePixelRatio}px 0px,
-        ${color} 0 0px ${glowSize * sizeMultiplier}px, 
-        ${color} 0 0px ${glowSize * sizeMultiplier}px, 
-        ${color} 0 0px ${glowSize * sizeMultiplier}px;`
+        #0000009e 0 0px 1px 0px,
+        ${color} 0 0px ${glowSize * sizeMultiplier}px ${Math.floor(
+      (glowSize * sizeMultiplier) / 3
+    )}px;`
   } else {
     // TODO: duplicate code because of execution scope, fix this shit :|
     return `
       background-color: ${color}; 
       box-shadow:
+        #0000009e 0 0px 1px 0px,
         inset #ffffff8c 0px 1px 2px,
         inset #00000033 0 -1px 1px 1px,
         inset ${color} 0 -1px 4px;`
