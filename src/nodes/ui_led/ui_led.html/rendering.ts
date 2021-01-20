@@ -1,4 +1,5 @@
 import { EditorNodeInstance } from 'node-red'
+import { hexForName, nameForHex } from './css'
 import { Payload } from '../../../types/node-red-dashboard'
 import { control } from '../shared/rendering'
 import {
@@ -164,11 +165,23 @@ export const generateValueFormRow = (
       'border: 1px solid #ccc; border-radius: 5px; margin-left:10px; display: flex; flex-direction: row;'
   }).appendTo(row)
 
+  const convertOrFallback = (
+    value: string,
+    convert: (value: string) => string | undefined
+  ): string => {
+    const converted = convert(value)
+    if (converted === undefined) {
+      return value
+    }
+
+    return converted
+  }
+
   const colorField = $('<input/>', {
     class: rowColorFieldClass,
     type: 'color',
     style: 'width: 30px; border-width: 0;',
-    value: value.color
+    value: convertOrFallback(value.color, hexForName)
   }).appendTo(colorFields)
 
   const colorTextField = $('<input/>', {
@@ -177,17 +190,19 @@ export const generateValueFormRow = (
     style: 'flex-grow: 1; margin-left: 1px;; border-width: 0;',
     placeholder: 'Color',
     required: true,
-    value: value.color
+    value: convertOrFallback(value.color, nameForHex)
   }).appendTo(colorFields)
 
   colorField.on('change', () => {
-    if (colorTextField !== undefined && colorField !== undefined)
-      colorTextField.val(colorField.val())
+    if (colorTextField !== undefined && colorField !== undefined) {
+      colorTextField.val(convertOrFallback(colorField.val(), nameForHex))
+    }
   })
 
   colorTextField.on('change', () => {
-    if (colorField !== undefined && colorTextField !== undefined)
-      colorField.val(colorTextField.val())
+    if (colorField !== undefined && colorTextField !== undefined) {
+      colorField.val(convertOrFallback(colorTextField.val(), hexForName))
+    }
   })
 
   requiredFieldClasses.push(colorFieldClass)
