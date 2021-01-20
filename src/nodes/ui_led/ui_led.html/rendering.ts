@@ -158,18 +158,41 @@ export const generateValueFormRow = (
   if (!value.color) {
     rowColorFieldClass = rowColorFieldClass + ' ' + inputErrorClass
   }
+
+  const colorFields = $('<div/>', {
+    style:
+      'border: 1px solid #ccc; border-radius: 5px; margin-left:10px; display: flex; flex-direction: row;'
+  }).appendTo(row)
+
   const colorField = $('<input/>', {
     class: rowColorFieldClass,
+    type: 'color',
+    style: 'width: 30px; border-width: 0;',
+    value: value.color
+  }).appendTo(colorFields)
+
+  const colorTextField = $('<input/>', {
+    class: rowColorFieldClass,
     type: 'text',
-    style: 'width:35%; margin-left:10px;',
+    style: 'flex-grow: 1; margin-left: 1px;; border-width: 0;',
     placeholder: 'Color',
     required: true,
     value: value.color
-  }).appendTo(row)
+  }).appendTo(colorFields)
+
+  colorField.on('change', () => {
+    if (colorTextField !== undefined && colorField !== undefined)
+      colorTextField.val(colorField.val())
+  })
+
+  colorTextField.on('change', () => {
+    if (colorField !== undefined && colorTextField !== undefined)
+      colorField.val(colorTextField.val())
+  })
 
   requiredFieldClasses.push(colorFieldClass)
 
-  colorField.keyup(fieldKeyUpValidateNotEmpty)
+  colorTextField.keyup(fieldKeyUpValidateNotEmpty)
 
   const deleteButton = $('<a/>', {
     href: '#',
