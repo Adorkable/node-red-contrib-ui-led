@@ -1,90 +1,78 @@
 import { EditorRED } from 'node-red'
-import { ColorForValue, ValueType } from '../shared/types'
 import { colorForValueDefault, defaultsFactory } from './defaults'
 import {
-  colorFieldClass,
+  addColorForValueId,
   colorForValueEditContainerId,
-  generateValueFormRow,
+  groupId,
+  heightId,
   rowHandleClass,
-  valueFieldClass,
-  valueTypeFieldClass
-} from './editor'
-import { label, labelStyle } from './rendering'
+  shapeId,
+  showGlowId,
+  showPreviewId,
+  sizeId,
+  widthId
+} from './constants'
+import {
+  addColorForValue,
+  fieldKeyUpValidateNotEmpty,
+  setChecked,
+  setupPreviewUpdating,
+  togglePreview
+} from './interaction'
+import { generateValueFormRow, label, labelStyle } from './rendering'
 import { LEDEditorNodeInstance } from './types'
+import { getColorForValueFromContainer } from './processing'
 
 declare const RED: EditorRED
-declare interface JQuery<TElement extends HTMLElement> {
-  elementSizer(options: {
-    width: string
-    height: string
-    group: string
-    element?: TElement
-  }): void
-}
 
-const oneditprepare = function (this: LEDEditorNodeInstance) {
-  (($('#node-input-size') as unknown) as JQuery<HTMLElement>).elementSizer({
-    width: '#node-input-width',
-    height: '#node-input-height',
-    group: '#node-input-group'
-  })
-
-  $('#node-input-add-color').click(() => {
-    generateValueFormRow(
-      $(colorForValueEditContainerId).children().length + 1,
-      {}
-    )
-    $(colorForValueEditContainerId).scrollTop(
-      $(colorForValueEditContainerId).get(0).scrollHeight
-    )
-  })
-
-  if (!this.colorForValue) {
-    this.colorForValue = colorForValueDefault
+const setupColorForValue = (node: LEDEditorNodeInstance) => {
+  for (let index = 0; index < node.colorForValue.length; index++) {
+    const rowValue = node.colorForValue[index]
+    generateValueFormRow(index + 1, rowValue, fieldKeyUpValidateNotEmpty)
   }
 
-  for (let index = 0; index < this.colorForValue.length; index++) {
-    const rowValue = this.colorForValue[index]
-    generateValueFormRow(index + 1, rowValue)
-  }
-
-  $(colorForValueEditContainerId).sortable({
+  $('#' + colorForValueEditContainerId).sortable({
     axis: 'y',
     handle: '.' + rowHandleClass,
     cursor: 'move'
   })
+
+  $('#' + addColorForValueId).on('click', addColorForValue)
+}
+
+const oneditprepare = function (this: LEDEditorNodeInstance) {
+  // TODO: why isn't this picking up on the interface definition additions
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;($('#' + sizeId) as any).elementSizer({
+    width: '#' + widthId,
+    height: '#' + heightId,
+    group: '#' + groupId
+  })
+
+  if (typeof this.colorForValue === 'undefined') {
+    this.colorForValue = colorForValueDefault
+  }
+
+  if (typeof this.shape === 'undefined') {
+    this.shape = 'circle'
+    $('#' + shapeId).val('circle')
+  }
+
+  if (typeof this.showGlow === 'undefined') {
+    this.showGlow = true
+    setChecked('#' + showGlowId, this.showGlow)
+  }
+
+  setupColorForValue(this)
+
+  $('#' + showPreviewId).on('click', () => {
+    togglePreview()
+  })
+  setupPreviewUpdating(this, RED)
 }
 
 const oneditsave = function (this: LEDEditorNodeInstance) {
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const node = this
-
-  const colorsElement = $(colorForValueEditContainerId).children()
-  node.colorForValue = []
-  colorsElement.each(function (_index) {
-    const colorElement = $(this)
-
-    const color =
-      colorElement
-        .find('.' + colorFieldClass)
-        .val()
-        ?.toString() || ''
-    const value =
-      colorElement
-        .find('.' + valueFieldClass)
-        .val()
-        ?.toString() || 'null'
-    const valueType = (colorElement
-      .find('.' + valueTypeFieldClass)
-      .val()
-      ?.toString() || 'str') as ValueType
-    const settings: ColorForValue = {
-      color,
-      value,
-      valueType
-    }
-    node.colorForValue.push(settings)
-  })
+  this.colorForValue = getColorForValueFromContainer()
 }
 
 RED.nodes.registerType('ui_led', {

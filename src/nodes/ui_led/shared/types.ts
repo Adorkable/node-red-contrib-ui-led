@@ -1,9 +1,13 @@
 import { Payload } from '../../../types/node-red-dashboard'
 
+export type LabelPlacement = 'left' | 'right'
+export type LabelAlignment = 'left' | 'center' | 'right'
+export type Shape = 'circle' | 'square'
+
 export interface LEDNodeOptions {
   label: string
-  labelAlignment?: string | void
-  labelPlacement?: string | void
+  labelPlacement?: LabelPlacement | void
+  labelAlignment?: LabelAlignment | void
 
   width?: number | void
   height?: number | void
@@ -15,6 +19,8 @@ export interface LEDNodeOptions {
   colorForValue: ColorForValueArray
 
   allowColorForValueInMessage: boolean
+
+  shape: Shape
 
   showGlow: boolean
 }

@@ -28,6 +28,21 @@ npm install node-red-contrib-ui-led
 
 Or install the node from the Palette section of your Node-RED editor by searching by name (`node-red-contrib-ui-led`).
 
+## Aesthetics
+
+There are a number of options when it comes to the node's aesthetics.
+
+<br/>
+<div style='display: flex;'>
+  <span style='margin-right: 10px; width: 50%'>By default the LED itself will grow and shrink to fit the vertical height of the space it is locked to, auto-size to fit the group if marked `auto`.</span>
+  <img src="./images/sizes.png" alt="Sizes" width="300px"/>
+</div>
+<br/>
+
+Most other customization happens in the **Edit panel**, which includes a preview so you can tweak to your heart's content.
+
+![Edit panel](images/preview_changes.gif)
+
 ## Custom Statuses
 
 Although `true` => Green and `false` => Red is the default, one can map other payload values to any color.

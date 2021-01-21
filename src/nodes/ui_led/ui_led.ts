@@ -2,7 +2,7 @@ import { NodeInitializer } from 'node-red'
 import { GroupNodeInstance, NodeRedUI } from '../../types/node-red-dashboard'
 
 import { beforeEmitFactory, initController } from './processing'
-import { HTML, ledStyle } from './rendering'
+import { HTML } from './rendering'
 import { LEDNode, LEDNodeDef } from './types'
 import { checkConfig, mapColorForValue, nodeToStringFactory } from './utility'
 
@@ -36,7 +36,9 @@ const nodeInit: NodeInitializer = (RED): void => {
         config.width || (config.group && groupNode.config.width) || undefined
       const height = config.height || 1
 
-      const format = HTML(config, ledStyle('gray', false))
+      const format = HTML(config, 'gray', false, height)
+
+      this.height = height
 
       const done = ui.addWidget({
         node: this,
