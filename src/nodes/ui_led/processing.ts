@@ -149,7 +149,8 @@ export const initController: InitController = (
         #0000009e 0 0px ${2 / window.devicePixelRatio}px 0px,
         ${color} 0 0px ${glowSize * sizeMultiplier}px ${Math.floor(
         (glowSize * sizeMultiplier) / 3
-      )}px;`
+      )}px,
+      inset #00000017 0 -1px 1px 0px;`
     } else {
       // TODO: duplicate code because of execution scope, fix this shit :|
       return `
@@ -157,8 +158,8 @@ export const initController: InitController = (
       box-shadow:
         #0000009e 0 0px ${2 / window.devicePixelRatio}px 0px,
         inset #ffffff8c 0px 1px 2px,
-        inset #00000033 0 -1px 1px 1px,
-        inset ${color} 0 -1px 4px;`
+        inset #00000033 0 -1px 1px 0px,
+        inset ${color} 0 -1px 2px;`
     }
   }
 
