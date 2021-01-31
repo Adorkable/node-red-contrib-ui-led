@@ -177,11 +177,12 @@ export const generateValueFormRow = (
     return converted
   }
 
+  const colorString: string = (value.color as string) || 'green'
   const colorField = $('<input/>', {
     class: rowColorFieldClass,
     type: 'color',
     style: 'width: 30px; border-width: 0;',
-    value: convertOrFallback(value.color, hexForName)
+    value: convertOrFallback(colorString, hexForName)
   }).appendTo(colorFields)
 
   const colorTextField = $('<input/>', {
@@ -190,7 +191,7 @@ export const generateValueFormRow = (
     style: 'flex-grow: 1; margin-left: 1px;; border-width: 0;',
     placeholder: 'Color',
     required: true,
-    value: convertOrFallback(value.color, nameForHex)
+    value: convertOrFallback(colorString, nameForHex)
   }).appendTo(colorFields)
 
   colorField.on('change', () => {
