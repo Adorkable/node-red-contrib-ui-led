@@ -9,8 +9,8 @@ export interface LEDNodeOptions {
   labelPlacement?: LabelPlacement | void
   labelAlignment?: LabelAlignment | void
 
-  width?: number | void
-  height?: number | void
+  width?: number | string | void
+  height?: number | string | void
 
   order: number
 

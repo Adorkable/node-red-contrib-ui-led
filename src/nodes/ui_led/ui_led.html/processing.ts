@@ -1,6 +1,7 @@
 import { EditorRED } from 'node-red'
 import { GroupNodeDef } from '../../../types/node-red-dashboard'
 import { ColorForValueArray, ValueType } from '../shared/types'
+import { guaranteeInt } from '../shared/utility'
 import {
   colorFieldClass,
   colorForValueEditContainerId,
@@ -98,11 +99,8 @@ export const validateLabelFactory = (RED: EditorRED) => {
     }
 
     const groupNode = getSelectedGroupNodeDef(this, RED)
-    const fitsWithLabel = willFitWithLabel(
-      this.width || WidthAutosize,
-      newValue,
-      groupNode
-    )
+    const width = guaranteeInt(this.width, WidthAutosize)
+    const fitsWithLabel = willFitWithLabel(width, newValue, groupNode)
 
     $('#node-input-label').toggleClass('input-error', !fitsWithLabel)
     return fitsWithLabel

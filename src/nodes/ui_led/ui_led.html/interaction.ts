@@ -1,6 +1,7 @@
 import { EditorNodeInstance, EditorRED } from 'node-red'
 import { GroupNodeDef } from '../../../types/node-red-dashboard'
 import { LabelAlignment, LabelPlacement, Shape } from '../shared/types'
+import { guaranteeInt } from '../shared/utility'
 import {
   colorFieldClass,
   colorForValueEditContainerId,
@@ -49,9 +50,9 @@ export const setupPreviewUpdating = (
   const latestConfig: PreviewConfig = {
     color:
       node.colorForValue.length > 0 ? node.colorForValue[0].color : 'green',
-    width: typeof node.width !== 'undefined' ? node.width : 0,
+    width: guaranteeInt(node.width, 0),
     maxWidth: latestGroup !== undefined ? latestGroup.width : 0,
-    height: typeof node.height !== 'undefined' ? node.height : 0,
+    height: guaranteeInt(node.height, 0),
     shape: node.shape,
     showGlow: node.showGlow,
     label: node.label,

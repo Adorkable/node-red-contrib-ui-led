@@ -3,6 +3,7 @@ import { GroupNodeInstance, NodeRedUI } from '../../types/node-red-dashboard'
 
 import { beforeEmitFactory, initController } from './processing'
 import { HTML } from './rendering'
+import { guaranteeInt, tryForInt } from './shared/utility'
 import { LEDNode, LEDNodeDef } from './types'
 import { checkConfig, mapColorForValue, nodeToStringFactory } from './utility'
 
@@ -33,8 +34,10 @@ const nodeInit: NodeInitializer = (RED): void => {
       const groupNode = RED.nodes.getNode(config.group) as GroupNodeInstance
 
       const width =
-        config.width || (config.group && groupNode.config.width) || undefined
-      const height = config.height || 1
+        tryForInt(config.width) ||
+        (config.group && groupNode.config.width) ||
+        undefined
+      const height = guaranteeInt(config.height, 1) || 1
 
       const format = HTML(config, 'gray', false, height)
 
