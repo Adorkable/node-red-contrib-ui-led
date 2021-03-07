@@ -28,6 +28,17 @@ export const ledStyle = (
   }
 }
 
+// HACK: workaround because ratio trick isn't working consistently across browsers
+const nodeRedDashboardUICardVerticalPadding = 3 * 2
+// const nodeRedDashboardUICardHorizontalPadding = 6 * 2
+const nodeRedDashboardUICardHeight = (sizeMultiplier: number): number => {
+  let height = 48 + (sizeMultiplier - 1) * 54
+  if (height >= 4) {
+    height -= 6 // For some reason the difference between 3 and 4 is 48
+  }
+  return height - nodeRedDashboardUICardVerticalPadding
+}
+
 export const ledElement = (
   controlClass: string,
   ledId: string,
@@ -38,46 +49,22 @@ export const ledElement = (
 ): string => {
   const showCurveReflection = false // TODO: Needs visual work and potentially make an option for poeple who like the old style better
 
-  const ledContainerPadding = `${(glowSize + 4) * sizeMultiplier}px`
+  const ledContainerPadding = (glowSize + 4) * sizeMultiplier
+
+  const length =
+    nodeRedDashboardUICardHeight(sizeMultiplier) - ledContainerPadding * 2
 
   // TODO: if show glow is turned off we should not include this padding for the glow?
-  const ledContainerStyle = String.raw`
-    div.${controlClass}.led_container {
-      right: 0px;
-      height: calc(100% - ${ledContainerPadding} * 2);
-      text-align: center;
-      padding: ${ledContainerPadding};
-    }`
-
-  const ledRatioFixStyle = String.raw`
-    div.${controlClass}.led_ratio_fix {
-      display: inline-block;
-      position: relative;
-      height: 100%;
-      width: inherit;
-      left: 0;
-      padding-bottom: 0;
-    }`
-
-  const ledRatioFixClearStyle = String.raw`
-    .${controlClass}.clear {
-      clear: both;
-    }
-    img.${controlClass}.clear {
-      filter: opacity(0);
-      height: 100%;
-      width: auto;
-      background: transparent;
-    }`
-
   const ledContentsStyle = String.raw`
     div.${controlClass}.led_contents {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width:100%;
+      min-height: ${length}px;
+      min-width: ${length}px;
+      height: ${length}px;
+      width: ${length}px;
+      max-height: ${length}px;
+      max-width: ${length}px;
+      text-align: center;
+      margin: ${ledContainerPadding}px;
       ${shape === 'circle' ? `border-radius: 50%;` : ''}
     }`
 
@@ -88,9 +75,6 @@ export const ledElement = (
       background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(0,255,31,0) 60%);'
     }`
   const styles = String.raw`
-        ${ledContainerStyle}
-        ${ledRatioFixStyle}
-        ${ledRatioFixClearStyle}
         ${ledContentsStyle}
         ${ledCurveShineReflectionStyle}
     `
@@ -106,18 +90,11 @@ export const ledElement = (
       ${showCurveReflection ? ledCurveReflection : ''}
     </div>`
 
-  const clearImageElement = String.raw`<img class='${controlClass} clear' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjI5QTA5Qjk3OUUzNjExRTJCQTNCOEE1OUQ4MkIxNUMwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjI5QTA5Qjk4OUUzNjExRTJCQTNCOEE1OUQ4MkIxNUMwIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MjlBMDlCOTU5RTM2MTFFMkJBM0I4QTU5RDgyQjE1QzAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MjlBMDlCOTY5RTM2MTFFMkJBM0I4QTU5RDgyQjE1QzAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4ceJHZAAAAD0lEQVR42mL4+fMWQIABAAW7As04lLnmAAAAAElFTkSuQmCC'>`
-
   return String.raw`
     <style>
         ${styles}
     </style>
-    <div class='${controlClass} led_container'>
-      <div class='${controlClass} led_ratio_fix'>
-          ${clearImageElement}
-          ${ledContentsElement}
-      </div>
-    </div>`
+    ${ledContentsElement}`
 }
 
 export const control = (
