@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-ui-led",
-  "version": "0.4.9",
+  "version": "0.4.10",
   "description": "A simple LED status indicator for the Node-RED Dashboard",
   "author": "Ian G <yo.ian.g@gmail.com>",
   "license": "MIT",
@@ -36,7 +36,7 @@
     "lint": "prettier --ignore-path .eslintignore --check '**/*.{js,ts,md}'; eslint --ext .js,.ts .",
     "lint:fix": "prettier --ignore-path .eslintignore --write '**/*.{js,ts,md}'; eslint --ext .js,.ts . --fix",
     "lint:watch": "onchange -v \"**/*.{js,ts,md}\" -- npm run lint",
-    "release": "npm run build && npm run publish"
+    "release": "npm run build && npm publish"
   },
   "dependencies": {
   },
