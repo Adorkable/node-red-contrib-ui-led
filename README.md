@@ -4,8 +4,7 @@ A simple LED status indicator for the Node-RED Dashboard
 
 ![CI](https://github.com/Adorkable/node-red-contrib-ui-led/workflows/CI/badge.svg)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FAdorkable%2Fnode-red-contrib-ui-led.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FAdorkable%2Fnode-red-contrib-ui-led?ref=badge_shield)
-
-[![dependencies](https://img.shields.io/librariesio/release/github/adorkable/node-red-contrib-ui-led?style=flat-square)](https://github.com/Adorkable/node-red-contrib-ui-led/network/dependencies)
+[![dependencies](https://img.shields.io/librariesio/release/github/adorkable/node-red-contrib-ui-led?style=flat)](https://github.com/Adorkable/node-red-contrib-ui-led/network/dependencies)
 
 ![Examples Image](images/examples.png)
 
